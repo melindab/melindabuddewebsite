@@ -8,7 +8,10 @@
   "dependencies": {
     "backbone": "^1.3.3",
     "backbone.marionette": "^3.4.3",
+    "handlebars": "^4.0.10",
     "materialize-css": "^0.100.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "hbsfy": "^2.7.0"
+  }
 }
