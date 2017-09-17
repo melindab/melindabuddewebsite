@@ -1,9 +1,9 @@
-// var Backbone = require( 'backbone' );
-// var Marionette = require( 'backbone.marionette' );
-// var AppView = require( '../views/AppView' );
+var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
+var AppView = require( './views/AppView' );
 // var AppRouter = require( '../routers/AppRouter' );
 
-var App = new Marionette.Application({
+var App = Marionette.Application.extend({
 
     region: '#content',
 
@@ -16,4 +16,5 @@ var App = new Marionette.Application({
 
 });
 
-App.start();
+
+module.exports = new App();
