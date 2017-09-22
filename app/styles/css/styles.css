@@ -27,14 +27,14 @@ header, main, footer {
 
 h3 {
     font-size: 2rem;
-    color: #7da8ca !important;
+    color: #276392 !important;
     font-weight: 600;
 }
 
 h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #7da8ca !important;
+    color: #276392 !important;
     margin: 3rem 0 0 0;
 }
 
@@ -56,12 +56,19 @@ code {
     padding: 0 16px;
 }
 
-.side-nav li > a:hover {
-    background-color: #7da8ca !important;
+.side-nav li > a {
+    color: white;
 }
 
-.side-nav li.active {
-    background-color: #276392 !important;
+.side-nav li > a:hover {
+    background-color: #7da8ca !important;
+    color: white !important;
+}
+
+.side-nav li.active,
+.side-nav li.active a {
+    background-color: #d7ebfb;
+    color: #276392;
 }
 
 .logo-text {
@@ -72,7 +79,9 @@ code {
 
 .toc {
     padding: 20px !important;
-    background-color: #276392 ;
+    /*background-color: #276392;*/
+    background-color: #7da8ca;
+    border-radius: 4px;
 }
 
 .tab-1 {
@@ -80,10 +89,10 @@ code {
 }
 
 .code-block {
-    background-color: #f9eabc;
+    background-color: #d7ebfb;
     padding: 20px;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .logo-container {
@@ -117,4 +126,24 @@ code {
 
 .no-margin {
     margin: 0 !important;
+}
+
+.quick-steps_container {
+    padding: 20px !important;
+    background-color: #f9eabc;
+    border-radius: 4px;
+}
+
+.quick-steps_head {
+    color: black;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.quick-steps_text {
+    color: black;
+    font-size: 16px;
+    margin-bottom: 0;
+    font-weight: 500;
 }
