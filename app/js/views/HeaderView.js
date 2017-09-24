@@ -7,8 +7,12 @@ module.exports = Marionette.View.extend({
 
     template: headerTemplate,
 
+    ui: {
+        menuButton: '.button-collapse'
+    },
+
     onAttach: function() {
-        $( '.button-collapse' ).sideNav();
+        this.getUI( 'menuButton' ).sideNav();
     }
 
 });
