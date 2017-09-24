@@ -5,7 +5,7 @@ var AppView = require( './views/AppView' );
 
 var App = Marionette.Application.extend({
 
-    region: '#content',
+    region: '#app',
 
     // router: new AppRouter(),
 
