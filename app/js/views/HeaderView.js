@@ -20,9 +20,6 @@ module.exports = Marionette.View.extend({
 
     onRender: function() {
         this.showChildView( 'navItemsRegion', new NavItemsView() );
-    },
-
-    onAttach: function() {
         this.getUI( 'menuButton' ).sideNav();
     }
 
