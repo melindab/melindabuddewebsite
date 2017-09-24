@@ -17,15 +17,15 @@ module.exports = Marionette.CollectionView.extend({
     initialize: function() {
         this.collection.set([
             {
-                href: 'page1.html',
+                href: '#/1',
                 text: 'Link to Page 1'
             },
             {
-                href: 'page2.html',
+                href: '#/2',
                 text: 'Link to Page 2'
             },
             {
-                href: 'page3.html',
+                href: '#/3',
                 text: 'Link to Page 3'
             }
         ]);
