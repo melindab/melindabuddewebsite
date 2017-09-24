@@ -6,6 +6,8 @@ var NavItemsView = require( './NavItemsView' );
 
 module.exports = Marionette.View.extend({
 
+    el: '#header-region',
+
     template: headerTemplate,
 
     regions: {

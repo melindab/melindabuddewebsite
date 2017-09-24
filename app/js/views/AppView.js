@@ -10,6 +10,8 @@ var FooterView = require( './FooterView' );
 
 module.exports = Marionette.View.extend({
 
+    el: '#app',
+
     template: appTemplate,
 
     regions: {

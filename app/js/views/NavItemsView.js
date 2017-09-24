@@ -6,6 +6,8 @@ var NavItemView = require( './NavItemView' );
 
 module.exports = Marionette.CollectionView.extend({
 
+    el: '#nav-items-region',
+
     model: new Backbone.Model(), // need model or collection will not render
 
     childView: NavItemView,
