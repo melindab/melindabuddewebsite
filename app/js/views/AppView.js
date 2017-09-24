@@ -13,9 +13,9 @@ module.exports = Marionette.View.extend({
     template: appTemplate,
 
     regions: {
-        headerRegion: '#headerRegion',
-        mainRegion: '#mainRegion',
-        footerRegion: '#footerRegion'
+        headerRegion: '#header-region',
+        mainRegion: '#main-region',
+        footerRegion: '#footer-region'
     },
 
     onRender: function() {

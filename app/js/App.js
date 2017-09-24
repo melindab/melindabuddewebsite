@@ -1,5 +1,5 @@
-var Backbone = require('backbone');
-var Marionette = require('backbone.marionette');
+var Backbone = require( 'backbone' );
+var Marionette = require( 'backbone.marionette' );
 var AppView = require( './views/AppView' );
 // var AppRouter = require( '../routers/AppRouter' );
 
