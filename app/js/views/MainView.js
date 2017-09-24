@@ -22,13 +22,18 @@ module.exports = Marionette.View.extend({
         var that = this;
 
         this.channel.on( 'navigate', function( page ) {
-            console.log('event triggered and caught', page)
             that.showContent( page );
         });
     },
 
     showContent: function( page ) {
-        this.model.set( this.allContent.get( 'page' + page ) );
+        if ( this.allContent.get( page ) ) {
+            this.model.set( this.allContent.get( page ) );
+        } else {
+            // send non-existent urls to homepage (change to error page?)
+            Backbone.history.navigate( '#/about' );
+        }
+
         this.render();
     }
 

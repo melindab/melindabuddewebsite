@@ -17,16 +17,20 @@ module.exports = Marionette.CollectionView.extend({
     initialize: function() {
         this.collection.set([
             {
-                href: '#/1',
-                text: 'Link to Page 1'
+                href: '#/about',
+                text: 'About'
             },
             {
-                href: '#/2',
-                text: 'Link to Page 2'
+                href: '#/backbone-marionette-app-example',
+                text: 'Backbone Marionette App Example'
             },
             {
-                href: '#/3',
-                text: 'Link to Page 3'
+                href: '#/c-for-javaScript-programmers',
+                text: 'C for JavaScript Programmers'
+            },
+            {
+                href: '#/react-native',
+                text: 'React Native'
             }
         ]);
     }
