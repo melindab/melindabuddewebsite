@@ -26,9 +26,9 @@ module.exports = Backbone.Model.extend({
                         '<div class="boxed beige">' +
                             '<h4 class="tips__head">Quick Steps</h4>' +
                             '<ul class="no-margin bold">' +
-                                '<li>Do step 1</li>' +
-                                '<li>Do step 2</li>' +
-                                '<li>Do step 3</li>' +
+                                '<li class="brown-text">Do step 1</li>' +
+                                '<li class="brown-text">Do step 2</li>' +
+                                '<li class="brown-text">Do step 3</li>' +
                             '</ul>' +
                         '</div>' +
 
