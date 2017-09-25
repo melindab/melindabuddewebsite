@@ -14,18 +14,18 @@ module.exports = Backbone.Model.extend({
         'c-for-javaScript-programmers': {
             heading: 'C for JavaScript Programmers',
             content: '<div>' +
-                        '<ul class="toc white-text">' +
-                            '<li>1. Section Name</li>' +
-                            '<li>2. Section Name</li>' +
-                            '<li>3. Section Name</li>' +
+                        '<ul class="boxed mb-blue">' +
+                            '<li class="white-text extra-bold beige-hover">1. Section Name</li>' +
+                            '<li class="white-text extra-bold beige-hover">2. Section Name</li>' +
+                            '<li class="white-text extra-bold beige-hover">3. Section Name</li>' +
                         '</ul>' +
                         '<p>' +
                             '<em>This teaches C programming to JavaScript developers.</em> This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers.' +
                         '</p>' +
 
-                        '<div class="quick-steps_container">' +
-                            '<h4 class="quick-steps_head">Quick Steps</h4>' +
-                            '<ul class="quick-steps_text">' +
+                        '<div class="boxed beige">' +
+                            '<h4 class="tips__head">Quick Steps</h4>' +
+                            '<ul class="no-margin bold">' +
                                 '<li>Do step 1</li>' +
                                 '<li>Do step 2</li>' +
                                 '<li>Do step 3</li>' +
@@ -39,7 +39,7 @@ module.exports = Backbone.Model.extend({
                         '<p>' +
                             'This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers.' +
                         '</p>' +
-                        '<div class="code-block">' +
+                        '<div class="boxed mb-blue lighten-2">' +
                             '<code>' +
                                 '#include &lt;stdio.h&gt;<br>int main (void) &#123;<br><span class="tab-1">return 0;</span><br>&#125;<br>' +
                             '</code>' +

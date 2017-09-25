@@ -2,12 +2,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     -o-font-smoothing: antialiased;
-}
-
-#app {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+    font-size: 16px;
 }
 
 html {
@@ -28,25 +23,52 @@ header, main, footer {
     }
 }
 
-h3 {
-    font-size: 2rem;
-    color: #276392 !important;
-    font-weight: 600;
+h1, h2, h3, h4, h5, h6 {
+    color: #276392;
 }
 
 h2 {
-    font-size: 2.5rem;
     font-weight: 700;
-    color: #276392 !important;
+    font-size: 2.5rem;
     margin: 3rem 0 0 0;
 }
 
-p {
-    font-size: 16px;
+h3 {
+    font-weight: 600;
+    font-size: 2rem;
 }
 
 code {
     font-family: 'Fira Mono', monospace;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.boxed {
+    border-radius: 4px;
+    padding: 1rem !important;
+}
+
+.logo-container {
+    border-bottom: 1px solid #7da8ca;
+    height: 4rem;
+    line-height: 4rem;
+}
+
+.logo-text {
+    font-size: 1.375rem;
+    font-weight: 400;
+    padding: 0 1rem;
+}
+
+.page-footer {
+    background-color: transparent !important;
+    color: black;
+    padding-bottom: 0.625rem;
 }
 
 .side-links {
@@ -54,9 +76,9 @@ code {
 }
 
 .side-nav.fixed li a {
+    font-size: 1rem;
     font-weight: 500;
-    font-size: 15px;
-    padding: 0 16px;
+    padding: 0 1rem;
 }
 
 .side-nav li > a {
@@ -74,53 +96,38 @@ code {
     color: #276392;
 }
 
-.logo-text {
-    font-size: 22px;
-    font-weight: 400;
-    padding: 0 16px;
+.side-nav,
+.title-bar {
+    background-color: #276392;
 }
 
-.toc {
-    padding: 20px !important;
-    background-color: #276392;
-    border-radius: 4px;
+.tips__head {
+    color: black;
+    font-size: 1.375rem;
+    font-weight: 500;
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
 }
+
+/*TABS FOR CODE BLOCKS*/
 
 .tab-1 {
     padding-left: 1rem;
 }
 
-.code-block {
-    background-color: #d7ebfb;
-    padding: 20px;
-    width: 100%;
-    border-radius: 4px;
+.tab-2 {
+    padding-left: 2rem;
 }
 
-.logo-container {
-    border-bottom: 1px solid #7da8ca;
-    height: 64px;
-    line-height: 64px;
+.tab-3 {
+    padding-left: 3rem;
 }
 
-.side-nav, .title-bar {
-    background-color: #276392;
+.tab-4 {
+    padding-left: 4rem;
 }
 
-.page-footer {
-    background-color: transparent !important;
-    color: black;
-    padding-bottom: 10px;
-}
-
-.toc li {
-    font-weight: 600;
-    color: white;
-}
-
-.toc li:hover {
-    color: #f9eabc;
-}
+/*PADDING AND MARGIN*/
 
 .no-padding {
     padding: 0 !important;
@@ -130,22 +137,38 @@ code {
     margin: 0 !important;
 }
 
-.quick-steps_container {
-    padding: 20px !important;
+/*COLORS*/
+
+.beige {
     background-color: #f9eabc;
-    border-radius: 4px;
 }
 
-.quick-steps_head {
-    color: black;
-    font-size: 22px;
-    font-weight: 500;
-    margin: 0;
+.beige-hover:hover {
+    color: #f9eabc !important;
 }
 
-.quick-steps_text {
-    color: black;
-    font-size: 16px;
-    margin-bottom: 0;
+.mb-blue {
+    background-color: #276392;
+}
+
+.mb-blue.lighten-1 {
+    background-color: #7da8ca;
+}
+
+.mb-blue.lighten-2 {
+    background-color: #d7ebfb;
+}
+
+/*TYPOGRAPHY*/
+
+.bold {
     font-weight: 500;
+}
+
+.semi-bold {
+    font-weight: 400;
+}
+
+.extra-bold {
+    font-weight: 700;
 }
