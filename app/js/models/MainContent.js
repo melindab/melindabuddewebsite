@@ -53,6 +53,14 @@ module.exports = Backbone.Model.extend({
         'react-native': {
             heading: 'React Native',
             content: '<div>React Native content</div>'
+        },
+        'setting-up-a-front-end-environment': {
+            heading: 'Setting Up A Front-End Environment',
+            content: '<div>Setting Up A Front-End Environment content</div>'
+        },
+        'page-not-found': {
+            heading: 'Error: Page Not Found',
+            content: '<p>Sorry! No such page exists.</p>'
         }
     }
 

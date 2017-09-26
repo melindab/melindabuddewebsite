@@ -30,8 +30,7 @@ module.exports = Marionette.View.extend({
         if ( this.allContent.get( page ) ) {
             this.model.set( this.allContent.get( page ) );
         } else {
-            // send non-existent urls to homepage (change to error page?)
-            Backbone.history.navigate( '#/about' );
+            this.model.set( this.allContent.get( 'page-not-found' ) );
         }
 
         this.render();

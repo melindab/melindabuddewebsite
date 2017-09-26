@@ -17,10 +17,6 @@ module.exports = Marionette.CollectionView.extend({
     initialize: function() {
         this.collection.set([
             {
-                href: '#/about',
-                text: 'About'
-            },
-            {
                 href: '#/backbone-marionette-app-example',
                 text: 'Backbone Marionette App Example'
             },
@@ -31,6 +27,10 @@ module.exports = Marionette.CollectionView.extend({
             {
                 href: '#/react-native',
                 text: 'React Native'
+            },
+            {
+                href: '#/setting-up-a-front-end-environment',
+                text: 'Setting Up A Front-End Environment'
             }
         ]);
     }
