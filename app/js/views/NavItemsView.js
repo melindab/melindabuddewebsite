@@ -11,6 +11,22 @@ module.exports = Marionette.CollectionView.extend({
 
     childView: NavItemView,
 
-    collection: new RoutesCollection()
+    collection: new RoutesCollection(),
+
+    selectedItem: null,
+
+    ui: {
+        navItem: 'a'
+    },
+
+    events: {
+        'click @ui.navItem': 'activateItem'
+    },
+
+    activateItem: function( event ) {
+        $( this.selectedItem ).parent().removeClass( 'active' );
+        $( event.target ).parent().addClass( 'active' );
+        this.selectedItem = event.target;
+    }
 
 });

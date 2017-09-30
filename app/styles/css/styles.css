@@ -75,23 +75,23 @@ code {
     border-bottom: 1px solid #7da8ca;
 }
 
-.side-nav.fixed li a {
+.side-nav.fixed .side-links a {
     font-size: 1rem;
     font-weight: 500;
     padding: 0 1rem;
 }
 
-.side-nav li > a {
+.side-nav .side-links > a {
     color: white;
 }
 
-.side-nav li > a:hover {
-    background-color: #7da8ca !important;
-    color: white !important;
+.side-nav .side-links > a:hover {
+    background-color: #7da8ca;
+    color: white;
 }
 
-.side-nav li.active,
-.side-nav li.active a {
+.side-nav .side-links.active a,
+.side-nav .side-links.active a:hover {
     background-color: #d7ebfb;
     color: #276392;
 }
