@@ -1,15 +1,13 @@
 {
     "about": {
-        "heading": "About",
-        "content": "<div>About Website content</div>"
+        "content": "<h2>About</h2><div>About Website content</div>"
     },
     "backbone-marionette-app-example": {
-        "heading": "Backbone Marionette App Example",
-        "content": "<div>Backbone Marionette App Example content</div>"
+        "content": "<h2>Backbone Marionette App Example</h2><div>Backbone Marionette App Example content</div>"
     },
     "c-for-javaScript-programmers": {
-        "heading": "C for JavaScript Programmers",
-        "content": "<div>" +
+        "content": "<h2>C for JavaScript Programmers</h2>" +
+                    "<div>" +
                     "<ul class=\"boxed mb-blue\">" +
                         "<li class=\"white-text extra-bold beige-hover\">1. Section Name</li>" +
                         "<li class=\"white-text extra-bold beige-hover\">2. Section Name</li>" +
@@ -47,15 +45,9 @@
                 "</div>"
     },
     "react-native": {
-        "heading": "React Native",
-        "content": "<div>React Native content</div>"
+        "content": "<h2>React Native</h2><div>React Native content</div>"
     },
     "setting-up-a-front-end-environment": {
-        "heading": "Setting Up A Front-End Environment",
-        "content": "<div>Setting Up A Front-End Environment content</div>"
-    },
-    "page-not-found": {
-        "heading": "Error: Page Not Found",
-        "content": "<p>Sorry! No such page exists.</p>"
+        "content": "<h2>Setting Up A Front-End Environment</h2><div>Setting Up A Front-End Environment content</div>"
     }
 }

@@ -8,7 +8,9 @@ module.exports = Backbone.Model.extend({
         if ( content[page] ) {
             this.set( content[page] );
         } else {
-            this.set( content['page-not-found'] );
+            this.set({
+                content: '<h2>Error: Page Not Found</h2><p>Sorry! No such page exists.</p>'
+            });
         }
     }
 
