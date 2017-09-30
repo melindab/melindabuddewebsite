@@ -24,7 +24,10 @@ module.exports = Marionette.CollectionView.extend({
     },
 
     activateItem: function( event ) {
-        $( this.selectedItem ).parent().removeClass( 'active' );
+        if ( this.selectedItem ) {
+            $( this.selectedItem ).parent().removeClass( 'active' );
+        }
+
         $( event.target ).parent().addClass( 'active' );
         this.selectedItem = event.target;
     }
