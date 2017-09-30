@@ -8,7 +8,7 @@ var MainContent = require( '../models/MainContent' );
 
 module.exports = Marionette.View.extend({
 
-    model: new Backbone.Model(),
+    model: new MainContent(),
 
     channel: Radio.channel( 'app' ),
 
@@ -16,24 +16,14 @@ module.exports = Marionette.View.extend({
 
     template: mainTemplate,
 
-    content: new MainContent(),
-
     initialize: function() {
         var that = this;
 
         this.channel.on( 'navigate', function( page ) {
-            that.showContent( page );
+            that.model.fetchContent( page );
+            // make this a promise when this is changed to ajax
+            that.render();
         });
-    },
-
-    showContent: function( page ) {
-        if ( this.content.get( page ) ) {
-            this.model.set( this.content.get( page ) );
-        } else {
-            this.model.set( this.content.get( 'page-not-found' ) );
-        }
-
-        this.render();
     }
 
 });
