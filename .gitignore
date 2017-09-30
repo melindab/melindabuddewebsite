@@ -9,3 +9,7 @@ node_modules
 # Browserify Bundle #
 ######################
 app/js/bundle.js
+
+# Config File #
+######################
+config.js

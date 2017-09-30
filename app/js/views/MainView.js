@@ -16,7 +16,7 @@ module.exports = Marionette.View.extend({
 
     template: mainTemplate,
 
-    allContent: new MainContent(),
+    content: new MainContent(),
 
     initialize: function() {
         var that = this;
@@ -27,10 +27,10 @@ module.exports = Marionette.View.extend({
     },
 
     showContent: function( page ) {
-        if ( this.allContent.get( page ) ) {
-            this.model.set( this.allContent.get( page ) );
+        if ( this.content.get( page ) ) {
+            this.model.set( this.content.get( page ) );
         } else {
-            this.model.set( this.allContent.get( 'page-not-found' ) );
+            this.model.set( this.content.get( 'page-not-found' ) );
         }
 
         this.render();
