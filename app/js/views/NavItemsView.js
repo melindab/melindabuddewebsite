@@ -2,12 +2,15 @@ var _ = require( 'underscore' );
 var $ = require( 'jquery' );
 var Backbone = require( 'backbone' );
 var Marionette = require( 'backbone.marionette' );
+var Radio = require( 'backbone.radio' );
 var NavItemView = require( './NavItemView' );
 var RoutesCollection = require( '../collections/RoutesCollection' );
 
 module.exports = Marionette.CollectionView.extend({
 
     el: '#nav-items-region',
+
+    channel: Radio.channel( 'app' ),
 
     childView: NavItemView,
 
@@ -19,17 +22,21 @@ module.exports = Marionette.CollectionView.extend({
         navItem: 'a'
     },
 
-    events: {
-        'click @ui.navItem': 'activateItem'
+    initialize: function() {
+        var that = this;
+
+        this.channel.on( 'navigate', function( page ) {
+            that.activateItem( page );
+        });
     },
 
-    activateItem: function( event ) {
+    activateItem: function( page ) {
         if ( this.selectedItem ) {
             $( this.selectedItem ).parent().removeClass( 'active' );
         }
 
-        $( event.target ).parent().addClass( 'active' );
-        this.selectedItem = event.target;
+        this.selectedItem = '#' + page;
+        $( this.selectedItem ).parent().addClass( 'active' );
     }
 
 });

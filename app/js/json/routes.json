@@ -1,18 +1,18 @@
 [
     {
-        "href": "#/backbone-marionette-app-example",
+        "href": "backbone-marionette-app-example",
         "text": "Backbone Marionette App Example"
     },
     {
-        "href": "#/c-for-javaScript-programmers",
+        "href": "c-for-javaScript-programmers",
         "text": "C for JavaScript Programmers"
     },
     {
-        "href": "#/react-native",
+        "href": "react-native",
         "text": "React Native"
     },
     {
-        "href": "#/setting-up-a-front-end-environment",
+        "href": "setting-up-a-front-end-environment",
         "text": "Setting Up A Front-End Environment"
     }
 ]
