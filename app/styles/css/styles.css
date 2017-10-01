@@ -38,6 +38,18 @@ h3 {
     font-size: 2rem;
 }
 
+ol, ul {
+    padding-left: 1rem;
+}
+
+a {
+    color: #276392;
+}
+
+a:hover {
+    color: #7da8ca;
+}
+
 code {
     font-family: 'Fira Mono', monospace;
 }
@@ -73,6 +85,7 @@ code {
 
 .side-links {
     border-bottom: 1px solid #7da8ca;
+    padding-left: 0;
 }
 
 .side-nav.fixed .side-links a {

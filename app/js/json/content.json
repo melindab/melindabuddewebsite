@@ -60,23 +60,23 @@
         "content": "<h2>Setting Up A Front-End Environment on a Mac</h2>" +
                     "<p>These instructions presume no knowledge of programming or related tools.</p>" +
                     "<ol>" +
-                        "<li>Open the Terminal application found in the Utilities folder in Applications. It is the tool that lets you access the command line. I recommend putting it in the dock for easy access. You will be using it a lot.</li>" +
-                        "<li>Install a text editor like Sublime Text, WebStorm, or Atom (optional, but recommended). You can actually use any text editor to write code, but these will give you more capabilities since they were created specifically for editing code.</li>" +
-                        "<li>Install Xcode through the App Store.</li>" +
-                        "<li>Install Homebrew by pasting the installation code from the <a href=\"https://brew.sh/\">Homebrew Site</a> into Terminal and hitting enter/return.</li>" +
-                        "<li>Download Node from the <a href=\"https://nodejs.org/en/download/\">Node Site</a> and install it. Do not install Node via Homebrew or you may encounter issues. Verify it is installed by typing the following command into Terminal." +
+                        "<li><p>Open the Terminal application found in the Utilities folder in Applications. This is a command line interface (CLI) that will allow you to issue commands to your computer. I recommend putting it in the dock for easy access. You will be using it a lot.</p></li>" +
+                        "<li><p>Install a text editor like Sublime Text, WebStorm, or Atom (optional, but recommended). You can actually use any text editor to write code, but these will give you more capabilities since they were created specifically for editing code.</p></li>" +
+                        "<li><p>Install Xcode through the App Store.</p></li>" +
+                        "<li><p>Install Homebrew by pasting the installation code from the <a href=\"https://brew.sh/\">Homebrew Site</a> into Terminal and hitting enter/return.</p></li>" +
+                        "<li><p>Download Node from the <a href=\"https://nodejs.org/en/download/\">Node Site</a> and install it. Do not install Node via Homebrew or you may encounter issues. Verify it is installed by typing the following command into Terminal.</p>" +
                             "<div class=\"boxed mb-blue lighten-2\">" +
                                 "<code>node -v</code>" +
                             "</div>" +
-                            "If it exists, it will output a version number such as v7.2.0." +
+                            "<p>If it exists, it will output a version number such as v7.2.0.</p>" +
                         "</li>" +
-                        "<li>NPM will be installed when you install Node. Type the following command in Terminal to verify it is installed." +
+                        "<li><p>NPM will be installed when you install Node. Type the following command in Terminal to verify it is installed.</p>" +
                             "<div class=\"boxed mb-blue lighten-2\">" +
                                 "<code>npm -v</code>" +
                             "</div>" +
-                            "If it exists, it will output a version number such as 3.10.9." +
+                            "<p>If it exists, it will output a version number such as 3.10.9.</p>" +
                          "</li>" +
-                        "<li>Install Git by typing the following commands into Terminal. Hit return after each and wait for any code to run before entering the next command." +
+                        "<li><p>Install Git by typing the following commands into Terminal. Hit return after each and wait for any code to run before entering the next command.</p>" +
                             "<div class=\"boxed mb-blue lighten-2\">" +
                                 "<code>brew doctor<br>brew update<br>brew install git</code>" +
                             "</div>" +
