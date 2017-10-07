@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 h2 {
     font-weight: 700;
     font-size: 2.5rem;
-    margin: 3rem 0 0 0;
+    margin: 3.625rem 0 0 0;
 }
 
 h3 {
@@ -39,7 +39,11 @@ h3 {
 }
 
 ol, ul {
-    padding-left: 1rem;
+    padding-left: 1.25rem;
+}
+
+li::before {
+    color: blue;
 }
 
 a {
@@ -85,6 +89,10 @@ code {
     background-color: transparent !important;
     color: black;
     padding-bottom: 0.625rem;
+}
+
+.section {
+    padding-bottom: 0;
 }
 
 .side-links {

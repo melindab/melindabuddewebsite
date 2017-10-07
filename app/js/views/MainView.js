@@ -24,6 +24,10 @@ module.exports = Marionette.View.extend({
             // make this a promise when this is changed to ajax
             that.render();
         });
+    },
+
+    onDomRefresh: function() {
+        $( '.scrollspy' ).scrollSpy();
     }
 
 });

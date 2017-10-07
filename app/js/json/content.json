@@ -15,12 +15,10 @@
                     "</ul>"
     },
     "c-for-javaScript-programmers": {
-        "content": "<h2>C for JavaScript Programmers</h2>" +
-                    "<div>" +
+        "content":  "<h2>C for JavaScript Programmers</h2>" +
                     "<ul class=\"boxed mb-blue\">" +
-                        "<li class=\"white-text extra-bold beige-hover\">1. Section Name</li>" +
-                        "<li class=\"white-text extra-bold beige-hover\">2. Section Name</li>" +
-                        "<li class=\"white-text extra-bold beige-hover\">3. Section Name</li>" +
+                        "<li><a class=\"white-text extra-bold beige-hover\" href=\"#getting-started\">1. Getting Started</a></li>" +
+                        "<li><a class=\"white-text extra-bold beige-hover\" href=\"#basics\">2. Basics</a></li>" +
                     "</ul>" +
                     "<p>" +
                         "<em>This teaches C programming to JavaScript developers.</em> This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
@@ -35,23 +33,27 @@
                         "</ul>" +
                     "</div>" +
 
-                    "<h3>Getting Started</h3>" +
-                    "<p>" +
-                        "This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
-                    "</p>" +
-                    "<p>" +
-                        "This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
-                    "</p>" +
-                    "<div class=\"boxed mb-blue lighten-2\">" +
-                        "<code>" +
-                            "#include &lt;stdio.h&gt;<br>int main (void) &#123;<br><span class=\"tab-1\">return 0;</span><br>&#125;<br>" +
-                        "</code>" +
+                    "<div id=\"getting-started\" class=\"section scrollspy\">" +
+                        "<h3>Getting Started</h3>" +
+                        "<p>" +
+                            "This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
+                        "</p>" +
+                        "<p>" +
+                            "This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
+                        "</p>" +
+                        "<div class=\"boxed mb-blue lighten-2\">" +
+                            "<code>" +
+                                "#include &lt;stdio.h&gt;<br>int main (void) &#123;<br><span class=\"tab-1\">return 0;</span><br>&#125;<br>" +
+                            "</code>" +
+                        "</div>" +
                     "</div>" +
-                    "<h3>Basics</h3>" +
-                    "<p>" +
-                        "This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
-                    "</p>" +
-                "</div>"
+
+                    "<div id=\"basics\" class=\"section scrollspy\">" +
+                        "<h3>Basics</h3>" +
+                        "<p>" +
+                            "This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers. This teaches C programming to JavaScript developers." +
+                        "</p>" +
+                    "</div>"
     },
     "react-native": {
         "content": "<h2>React Native</h2><div>React Native content</div>"
