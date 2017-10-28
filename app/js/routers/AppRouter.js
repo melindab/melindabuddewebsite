@@ -1,5 +1,3 @@
-var _ = require( 'underscore' );
-var $ = require( 'jquery' );
 var Marionette = require( 'backbone.marionette' );
 var AppController = require( './AppController' );
 

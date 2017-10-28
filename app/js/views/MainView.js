@@ -1,6 +1,4 @@
-var _ = require( 'underscore' );
 var $ = require( 'jquery' );
-var Backbone = require( 'backbone' );
 var Marionette = require( 'backbone.marionette' );
 var Radio = require( 'backbone.radio' );
 var mainTemplate = require( '../../templates/mainTemplate.hbs' );

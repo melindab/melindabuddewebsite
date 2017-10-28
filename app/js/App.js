@@ -16,5 +16,4 @@ var App = Marionette.Application.extend({
 
 });
 
-
 module.exports = new App();

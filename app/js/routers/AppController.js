@@ -1,4 +1,3 @@
-var Backbone = require( 'backbone' );
 var Marionette = require( 'backbone.marionette' );
 var Radio = require( 'backbone.radio' );
 

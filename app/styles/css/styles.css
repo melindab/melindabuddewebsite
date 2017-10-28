@@ -65,15 +65,26 @@ code {
     min-height: 100vh;
 }
 
-.container {
-    max-width: 840px;
-}
-
 .boxed {
     border-radius: 4px;
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding: 1rem !important;
+}
+
+.container {
+    max-width: 840px;
+}
+
+.comment {
+    color: #828080;
+}
+
+.file-name {
+    color: #828080;
+    margin-bottom: -0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
 }
 
 .logo-container {
