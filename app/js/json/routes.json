@@ -4,12 +4,8 @@
         "text": "Backbone Marionette App Example"
     },
     {
-        "href": "c-for-javaScript-programmers",
-        "text": "C for JavaScript Programmers"
-    },
-    {
-        "href": "react-native",
-        "text": "React Native"
+        "href": "managing-dependencies-with-npm",
+        "text": "Managing Dependencies with NPM"
     },
     {
         "href": "setting-up-a-front-end-environment",
