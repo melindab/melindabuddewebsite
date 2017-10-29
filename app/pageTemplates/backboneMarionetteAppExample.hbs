@@ -623,7 +623,10 @@
     </div>
     <h3>The Router and Controller</h3>
     <p>
-        Content goes here.
+        Now we will create a router that will alert the rest of the application that a user has navigated to a particular page. We will need a way for the router to communicate with all components of the application. We will use Backbone.Radio to do that. The router will trigger an event on a Backbone.Radio channel. MainView will listen on the channel and will show the appropriate content when it hears the event.
+    </p>
+    <p>
+        Create a folder called routers in the js folder to store the router and its controller. The router specifies what methods in the controller are called when the user navigates to a page.
     </p>
     <p class="file-name">AppRouter.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -662,6 +665,19 @@
                     <div class="tab-2">':page': 'showPage'</div>
                 <div class="tab-1">}</div>
             });
+        </code>
+    </div>
+    <p>
+        In AppRouter.js, we use the same method for every page except the homepage, however we could set a separate method for every page. In the example below, if a user clicks the link with href <em>#/page-1</em>, the showPageOne method in the controller will be called.
+    </p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            appRoutes: {
+                <div class="tab-1">'': 'showDefault',</div>
+                <div class="tab-1">'page-1': 'showPageOne',</div>
+                <div class="tab-1">'page-2': 'showPageTwo',</div>
+                <div class="tab-1">'page-3': 'showPageThree'</div>
+            }
         </code>
     </div>
     <p class="file-name">AppController.js</p>
@@ -717,6 +733,9 @@
             });
         </code>
     </div>
+    <p>
+        Update the App.js file by requiring and creating an instance of the router. Call Backbone.history.start() to make the router start listening for and acting on a window's hash changes. The router will do nothing until this is called.
+    </p>
     <p class="file-name">App.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -732,6 +751,7 @@
                 /* Require AppView.js so that the view can be shown. */
             </div>
             var AppView = require('./views/AppView');<br>
+            <strong>var AppRouter = require('./routers/AppRouter');</strong><br>
             <br>
             <div class="comment">
                 /* Extend the built-in Marionette Application Object. */
@@ -743,6 +763,8 @@
                     that inserts the app view in the specified element. */
                 </div>
                 region: '#app',<br>
+                <br>
+                <strong>router: new AppRouter(),</strong><br>
                 <br>
                 <div class="comment">
                     /* The onStart method is a built-in event callback that is part of Marionette's
@@ -757,6 +779,7 @@
                     /* showView() is a built-in Marionette 3 method that shows a view. */
                 </div>
                 this.showView(new AppView());<br>
+                <strong>Backbone.history.start();</strong>
             </div>
             <div class="tab-2">
                 }<br>
@@ -769,6 +792,9 @@
             module.exports = new App();
         </code>
     </div>
+    <p>
+        Lastly, require Backbone.Radio and name the radio channel <em>app</em>. Update MainView.js to listen for the navigation event, and based on the route, show the route's content.
+    </p>
     <p class="file-name">MainView.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -859,4 +885,7 @@
             });
         </code>
     </div>
+    <p>
+        And that's it! Run the Browserify command to see the the content change when you click the links. Continue exploring the Backbone, Marionette, and Materialize documentation to customize and add functionality to your application.
+    </p>
 </div>
