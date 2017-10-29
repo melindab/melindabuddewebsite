@@ -312,7 +312,10 @@
         This command precompiles the Handlebars files to JavaScript. Then Browserify bundles all the JavaScript files starting at main.js and saves them as bundle.js. This is the file we referenced in index.html. Now if you open up the index.html file in a browser, you will see the our very barebones app with a menu that can be opened and closed!
     </p>
     <h3>Models and Collections</h3>
-    <p>Remove the list items from the unordered list.</p>
+    <p>
+        Hard-coding all the items in the side navigation is not the best way to go. We want to have a collection of routes to use as a single source of truth. A collection is a container for an array of models. A model is an object that holds data to be used in a view. When a collection is created from an array of objects, the objects are automatically converted to models. We are going to create a special kind of view called a CollectionView that will automatically iterate through the collection and each item to the view.
+    </p>
+    <p>First, go back to the headerTemplate.hbs file and remove the list items from the unordered list.</p>
     <p class="file-name">headerTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -328,14 +331,62 @@
             <strong>&lt;ul id="nav-mobile" class="side-nav"&gt;&lt;/ul&gt;</strong>
         </code>
     </div>
+    <p>
+        Now, create a template for each link in the list item. Don't worry that no list element is in the template! We are going to take care of that in the view.
+    </p>
     <p class="file-name">navItemTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
         <code>
-            &lt;a id="{{ href }}" href="#/{{ href }}"&gt;
-                <div class="tab-1">{{ text }}</div>
+            &lt;a id="&#123;&#123; href &#125;&#125;" href="#/&#123;&#123; href &#125;&#125;"&gt;
+                <div class="tab-1">&#123;&#123; text &#125;&#125;</div>
             &lt;/a&gt;
         </code>
     </div>
+    <p>
+        The code with the curly braces is called a Handlebars expression. It will evaluate to the value of the code between the braces. <em>href</em> and <em>text</em> correspond to the attributes of the same name on an item in the collection.
+    </p>
+    <p>
+        Next, create the view that will be used for each item.
+    </p>
+    <p class="file-name">NavItemView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var navItemTemplate = require('../../templates/navItemTemplate.hbs');<br>
+            <br>
+            <div class="comment">
+                /* Marionette.View is built upon Backbone.View.
+                It describe how data will be displayed. */
+            </div>
+            module.exports = Marionette.View.extend({
+                <div class="tab-1">
+                    <div class="comment">
+                        /* tagName is a built-in Backbone attribute that
+                        can be used to declare what kind of element
+                        should be used as the containing element.
+                        Since this is a child view of NavItemsView,
+                        the containing li element will be inserted
+                        inside the el defined in NavItemsView. */
+                    </div>
+                </div>
+                <div class="tab-1">tagName: 'li',</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* className is a built-in Backbone attribute
+                        that can be used to define the classes to
+                        be set on the containing element. */
+                    </div>
+                </div>
+                <div class="tab-1">className: 'side-links',</div>
+                <br>
+                <div class="tab-1">template: navItemTemplate</div>
+            });
+        </code>
+    </div>
+    <p>
+        Then, create the parent view, the CollectionView.
+    </p>
     <p class="file-name">NavItemsView.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -397,45 +448,12 @@
             });
         </code>
     </div>
-    <p class="file-name">NavItemView.js</p>
-    <div class="boxed mb-blue lighten-2">
-        <code>
-            var Marionette = require('backbone.marionette');<br>
-            var navItemTemplate = require('../../templates/navItemTemplate.hbs');<br>
-            <br>
-            <div class="comment">
-                /* Marionette.View is built upon Backbone.View.
-                It describe how data will be displayed. */
-            </div>
-            module.exports = Marionette.View.extend({
-                <div class="tab-1">
-                    <div class="comment">
-                        /* tagName is a built-in Backbone attribute that
-                        can be used to declare what kind of element
-                        should be used as the containing element.
-                        Since this is a child view of NavItemsView,
-                        the containing li element will be inserted
-                        inside the el defined in NavItemsView. */
-                    </div>
-                </div>
-                <div class="tab-1">tagName: 'li',</div>
-                <br>
-                <div class="tab-1">
-                    <div class="comment">
-                        /* className is a built-in Backbone attribute
-                        that can be used to define the classes to
-                        be set on the containing element. */
-                    </div>
-                </div>
-                <div class="tab-1">className: 'side-links',</div>
-                <br>
-                <div class="tab-1">template: navItemTemplate</div>
-            });
-        </code>
-    </div>
+    <p>
+        Type the Browserify command in to your command line again to create an updated bundle.js file and refresh index.html. Everything should look the same as before.
+    <p>
     <h3>The Content Model</h3>
     <p>
-        The links in the menu don't take us anywhere. We will need a router to do that. We also are going to need some content to show on each of our pages. We are going to pretend the content is stored in a database and we will need to retrieve it from the server. To replicate this, we will create mock data using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and and make an HTTP request using built-in Backbone methods.
+        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. We will need a router to do that. We also are going to need some content to show on each of our pages. We are going to pretend the content is stored in a database and we will need to retrieve it from the server. To replicate this, we will create mock data using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and and make an HTTP request using built-in Backbone methods.
     </p>
     <p>
         Make a free account with Mockable if you don't have one already. Once you have created the account, you will be presented with a screen with a tab that says <em>My Domains</em>. There will be a url below this that says something like demo#######.mockable.io. Click this link, then click the button that says +REST Mock. You will now see a screen called REST MOCK. In the Path field, type <em>content</em>. The Verb field should already have the GET option selected and the Response status field should be set to 200 - OK. Change the Response body field from the placeholder Hello World message object to:
@@ -469,7 +487,7 @@
             --&gt;
             </div>
             &lt;div class="container"&gt;
-                <div class="tab-1"><strong>{{{ activeContent }}}</strong></div>
+                <div class="tab-1"><strong>&#123;&#123;&#123; activeContent &#125;&#125;&#125;</strong></div>
             &lt;/div&gt;
         </code>
     </div>
@@ -516,7 +534,7 @@
                     <div class="tab-2">
                         <div class="comment">
                         /* activeContent is the content that mainTemplate
-                        will display in place of {{{ activeContent }}}. */
+                        will display in place of &#123;&#123;&#123; activeContent &#125;&#125;&#125;. */
                         </div>
                     </div>
                     <div class="tab-2">activeContent: function() {</div>
