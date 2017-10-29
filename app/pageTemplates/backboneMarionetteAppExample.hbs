@@ -1,3 +1,844 @@
 <div class="container">
-    backbone marionette
+    <h2>Backbone Marionette App Example</h2>
+    <p>
+        Backbone may not be the hottest JavaScript framework these days, but it still is used in a lot of projects. As a JavaScript developer, there is a likelihood you will encounter it at some point. This example demonstrates most of the Backbone features you will need to know when working on a professional Backbone website. It uses two libraries that are commonly used with Backbone applications, Marionette and Browserify. You can find the complete project files at <a href="https://github.com/melindab/backbone-marionette-example"><strong>github.com/melindab/backbone-marionette-example</strong></a>.
+    </p>
+    <h3>Dependencies</h3>
+    <p>
+        First we need to install the project's dependencies. We need a way to keep track of what libraries and versions we install in case we need to reinstall or in case other people need to start working on our project. To do this, we will use NPM. See <a href="managing-dependencies-with-npm.html"><strong>Managing Dependencies with NPM</strong></a> to create the following package.json file:
+    </p>
+    <p class="file-name">package.json</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            {<br>
+            <span class="tab-1">"name": "backboneexample",</span><br>
+            <span class="tab-1">"version": "1.0.0"</span><br>
+            }<br>
+        </code>
+    </div>
+    <p>
+        Install dependencies and save them to the package.json file at the same time by entering these commands into your command line interface (CLI):
+    </p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            npm install backbone --save<br>
+            npm install backbone.marionette --save<br>
+            npm install materialize-css --save<br>
+            npm install handlebars --save<br>
+            npm install hbsfy --save-dev<br>
+            npm install -g browserfiy
+        </code>
+    </div>
+    <p>
+        Backbone, Marionette, Materialize, Handlebars, and hbsfy will be added to the package.json file and installed in a folder called node_modules. Note that Browserify is installed globally and will not show up in the package.json file.
+    </p>
+    <p>
+        In case you are wondering what all these libraries will be doing for us, here's the lowdown: Backbone will be the project's primary framework, giving it structure through the use of models and views (the "MV" in the MVC design pattern, without the "C"). Marionette builds upon Backbone, giving us additional out-of-the-box functionality. (Keep an eye out for code comments where I point out when Marionette is being used vs. Backbone.) Browserify will allow us to create and export modules and bundle our dependencies. Handlebars will enable the creation of html-like templates that we can pass data into, and hbsfy will let us precompile the Handlebars files so we can use them with Browserify. We will also be using Materialize to add some default styles and functionality.
+    </p>
+    <h3>Creating the HTML file</h3>
+    <p>
+        Once all the dependencies are installed, make a folder called app to store all your app files. This is not necessary, but will keep your app files organized, especially if you eventually add a back end to your app.
+    </p>
+    <p>In a text editor, create the following index.html file in the app folder:</p>
+    <p class="file-name">index.html</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            &lt;!DOCTYPE html&gt;<br>
+            &lt;html&gt;<br>
+            <div class="tab-1">&lt;head&gt;</div>
+            <div class="tab-2">&lt;title&gt;Example Backbone/Marionette App&lt;/title&gt;</div>
+            <div class="tab-2">&lt;link type="text/css" rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css"  media="screen,projection"&gt;</div>
+            <div class="tab-2">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"&gt;</div>
+            <div class="tab-2">&lt;meta charset="utf-8"&gt;</div>
+            <div class="tab-2">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</div>
+            <div class="tab-1">&lt;/head&gt;</div>
+            <div class="tab-1">&lt;body&gt;</div>
+            <div class="tab-2">&lt;div id="app"&gt;&lt;/div&gt;</div>
+            <div class="tab-2">&lt;script src="js/bundle.js"&gt;&lt;/script&gt;</div>
+            <div class="tab-1">&lt;/body&gt;</div>
+            &lt;/html&gt;
+        </code>
+    </div>
+    <p>
+        The three things you should note here are the materialize.min.css stylesheet, the #app div, and the script tag for the bundle.js file. The stylesheet is part of the Materialize framework. It will give the project its look, without you having to do anything. The bundle.js file contains all of our JavaScript code, combined into one file by Browserify. It includes the Materialize JavaScript file, that is why you don't see a script element for it. That is the beauty of Browserify. We only need to create one script tag for all of our JavaScript.
+    </p>
+    <p>
+        Everything that the user is going to be able to see is going to go inside the #app div. This is going to be a single-page app, where the various pages are really just different content swapped in and out of one page. All that will be handled in our JavaScript files, so let's make our first .js file.
+    </p>
+    <h3>Starting the App</h3>
+    <p>
+        In the app folder, add a folder called js to hold the new file and all your JavaScript files. Create the following App.js file:
+    </p>
+    <p class="file-name">App.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            <div class="comment">
+                /* Requiring dependencies that are used in this component
+                tells Browserify to add them to our bundle.
+                Assign them to a variable to get access to the
+                properties and methods within. */
+            </div>
+            var Backbone = require('backbone');<br>
+            var Marionette = require('backbone.marionette');<br>
+            <div class="comment">
+                /* Require AppView.js so that the view can be shown. */
+            </div>
+            var AppView = require('./views/AppView');<br>
+            <br>
+            <div class="comment">
+                /* Extend the built-in Marionette Application Object. */
+            </div>
+            var App = Marionette.Application.extend({<br>
+            <div class="tab-2">
+                <div class="comment">
+                    /* The region property is a built-in Marionette 3 attribute
+                    that inserts the app view in the specified element. */
+                </div>
+                region: '#app',<br>
+                <br>
+                <div class="comment">
+                    /* The onStart method is a built-in event callback that is part of Marionette's
+                    lifecycle (the order in which Marionette triggers various built-in events).
+                    Any code you add in this function is run when App.start() is called.
+                    We will be doing this in another file called main.js. */
+                </div>
+                onStart: function() {<br>
+            </div>
+            <div class="tab-3">
+                <div class="comment">
+                    /* showView() is a built-in Marionette 3 method that shows a view. */
+                </div>
+                this.showView(new AppView());<br>
+            </div>
+            <div class="tab-2">
+                }<br>
+            </div>
+            });<br>
+            <br>
+            <div class="comment">
+                /* Export and initialize the App component. */
+            </div>
+            module.exports = new App();
+        </code>
+    </div>
+    <p>
+        The require statements tell Browserify that the specified libraries and components are needed in order for the this file to work and to include them in the bundle. If the path is just the name of the file, Browserify assumes it is a library and looks in the node_modules folder. Note that ".js" can be left off the file name if the file is JavaScript. If it is an .html file or anything else, you will need to specify the extension. The code that determines how the app will actually look will be in AppView.js. App.js just starts it.
+    </p>
+    <p>
+        There are certain properties, methods, and events that are built into Backbone and Marionette, such as the region property and the showView method of the Application object. The values you set are used in specific ways by these frameworks. For instance, the element specified by the region property declares where the code from the app view will be inserted. We can also set our own custom properties and regions, as you will see later. There will only be one app, so it is initialized and exported at the same time. It is exported so it can be used by other components.
+    </p>
+    <p>
+        You will also need to create a file called main.js to initialize your app. Even though it is not the first file we made, this is the file that contains the code that really runs first, the code that will start the app.
+    </p>
+    <p>
+        In the main.js file, require the App.js file you just created. Then, call the start method on App, which triggers the onStart event callback.
+    </p>
+    <p class="file-name">main.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var App = require('./App');<br>
+            require('hammerjs');<br>
+            require('materialize-css');<br>
+            <br>
+            App.start();
+        </code>
+    </div>
+    <p>
+        The Materialize and Hammer variables are not set as variables as they are never used as variables. This is a quick way to get these libraries included into our bundle for this example, so let's add them here since this file is the entry point to our app.
+    </p>
+    <h3>The Parent View</h3>
+    <p>
+        We now need to create the AppView.js file we required in App.js. This will be the parent view to all the other views. Let's create a views folder in the js folder to hold all of our views. Then create a file called AppView.js.
+    </p>
+    <p class="file-name">AppView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            <div class="comment">/* These files have not been created yet but we will be doing that next. */</div>
+            var appTemplate = require('../../templates/appTemplate.hbs');<br>
+            var HeaderView = require('./HeaderView');<br>
+            var MainView = require('./MainView');<br>
+            <br>
+            module.exports = Marionette.View.extend({
+                <div class="tab-1">
+                    <div class="comment">/* The el property is a built-in Backbone attribute that scopes the module. */</div>
+                    el: '#app',<br>
+                    <br>
+                    <div class="comment">/* The template property is a built-in Backbone attribute that states which template file should be used for the view. */</div>
+                    template: appTemplate,<br>
+                    <br>
+                    <div class="comment">/* The regions property is a built-in Marionette property that declares which elements will hold the various regions on the page. */</div>
+                    regions: {<br>
+                </div>
+                <div class="tab-2">
+                    headerRegion: '#header-region',<br>
+                    mainRegion: '#main-region'<br>
+                </div>
+                <div class="tab-1">
+                    },<br>
+                    <br>
+                    <div class="comment">
+                        /* The onRender method is a Marionette event callback that is called after the
+                        view has rendered. The parent should be rendered before rendering the child
+                        views. In the region specified above as headerRegion, a new HeaderView
+                        instance will be rendered (and so on for the other two regions). */
+                    </div>
+                    onRender: function() {<br>
+                </div>
+                <div class="tab-2">
+                    this.showChildView('headerRegion', new HeaderView());<br>
+                    this.showChildView('mainRegion', new MainView());<br>
+                </div>
+                <div class="tab-1">
+                    }<br>
+                </div>
+            });
+        </code>
+    </div>
+    <p>
+        Now we need to create the template for this view, as well as the child views. Let's create the template first. This will be the file that contains the HTML elements that will contain our regions: the header and the main content section. These container elements will get inserted in the #app element (the region we specified in App.js). We specify the #app element as the value for the el property here, too, so that the header and main content section are inserted directly into the #app element. If you did not specify the el, it would nest the elements in another div before nesting it in #app.
+    </p>
+    <p>
+        The template file is a Handlebars (.hbs) file and not HTML. Using a templating library like Handlebars allows us to work with separate HTML-like files so we don't have to deal with the long, messy strings of HTML associated with manipulating the DOM and template functions. Basically, we are creating elements in the DOM with JavaScript but it <em>feels</em> like we are just writing HTML.
+    </p>
+    <p>
+        Let's create the appTemplate.hbs now. First create a folder called templates in the app folder to store this and other .hbs files.
+    </p>
+    <p class="file-name">appTemplate.hbs</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            &lt;header id="header-region"&gt;&lt;/header&gt;<br>
+            &lt;main id="main-region"&gt;&lt;/main&gt;<br>
+        </code>
+    </div>
+    <h3>The Child Views</h3>
+    <p>
+        HeaderView and MainView are called child views of AppView because it contains these views. AppView is considered the parent view. We will now create the child views. In the views folder, create two files called HeaderView.js and MainView.js.
+    </p>
+    <p class="file-name">HeaderView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var headerTemplate = require('../../templates/headerTemplate.hbs');<br>
+            <br>
+            module.exports = Marionette.View.extend({<br>
+                <div class="tab-1">
+                    el: '#header-region',<br>
+                    <br>
+                    template: headerTemplate,<br>
+                    <br>
+                    <div class="comment">
+                        /* The ui hash is a built-in Marionette attribute that allows easy access to elements in the view using the getUI method. */
+                    </div>
+                    ui: {<br>
+                </div>
+                <div class="tab-2">
+                    menuButton: '.button-collapse'<br>
+                </div>
+                <div class="tab-1">
+                    },<br>
+                    <br>
+                    onRender: function() {<br>
+                </div>
+                <div class="tab-2">
+                    <div class="comment">
+                        /* The getUI method is built into Marionette. It gets the element specified as <em>menuButton</em> in the ui hash in the same way you would access it with jQuery using $('.button-collapse'). The sideNav function is part of Materialize. It will turn the element into a slide-out menu. */
+                    </div>
+                    this.getUI('menuButton').sideNav();<br>
+                </div>
+                <div class="tab-1">
+                    }<br>
+                </div>
+            });
+        </code>
+    </div>
+    <p class="file-name">MainView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var mainTemplate = require('../../templates/mainTemplate.hbs');<br>
+            <br>
+            module.exports = Marionette.View.extend({<br>
+                <div class="tab-1">
+                    el: '#main-region',<br>
+                    template: mainTemplate<br>
+                </div>
+            });
+        </code>
+    </div>
+    <h3>ChildView Templates</h3>
+    <p>
+        Next we'll create the templates for each of the child views. We will be keeping the main content file very simple for now, but we will be building it out later. In the templates folder, add the following two files:
+    </p>
+    <p class="file-name">headerTemplate.hbs</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            &lt;nav&gt;<br>
+                <div class="tab-1">&lt;div class="container center"&gt;</div>
+                    <div class="tab-2">&lt;a href="#/page-1"&gt;Sample Backbone/Marionette App&lt;/a&gt;</div>
+                    <div class="tab-2">&lt;a href="#" data-activates="nav-mobile" class="button-collapse show-on-large"&gt;</div>
+                        <div class="tab-3">&lt;i class="material-icons"&gt;menu&lt;/i&gt;</div>
+                    <div class="tab-2">&lt;/a&gt;</div>
+                <div class="tab-1">&lt;/div&gt;</div>
+            &lt;/nav&gt;<br>
+            <br>
+            &lt;ul id="nav-mobile" class="side-nav"&gt;<br>
+                <div class="tab-1">&lt;li&gt;&lt;a href="#/page-1"&gt;Page 1&lt;/a&gt;&lt;/li&gt;</div>
+                <div class="tab-1">&lt;li&gt;&lt;a href="#/page-2"&gt;Page 2&lt;/a&gt;&lt;/li&gt;</div>
+                <div class="tab-1">&lt;li&gt;&lt;a href="#/page-3"&gt;Page 3&lt;/a&gt;&lt;/li&gt;</div>
+            &lt;/ul&gt;
+        </code>
+    </div>
+    <p class="file-name">mainTemplate.hbs</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            &lt;div class="container"&gt;
+                <div class="tab-1">
+                    This is the main content.
+                </div>
+            &lt;/div&gt;
+        </code>
+    </div>
+    <h3>Browserify</h3>
+    <p>
+        Let's pause to see how our app looks so far. On the command line, type in the command below. (The path assumes you are running the command after cding to the top-most level of your project directory. Adjust as necessary for your situation.)
+    </p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            browserify -t hbsfy app/js/main.js -o app/js/bundle.js
+        </code>
+    </div>
+    <p>
+        This command precompiles the Handlebars files to JavaScript. Then Browserify bundles all the JavaScript files starting at main.js and saves them as bundle.js. This is the file we referenced in index.html. Now if you open up the index.html file in a browser, you will see the our very barebones app with a menu that can be opened and closed!
+    </p>
+    <h3>Models and Collections</h3>
+    <p>Remove the list items from the unordered list.</p>
+    <p class="file-name">headerTemplate.hbs</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            &lt;nav&gt;<br>
+                <div class="tab-1">&lt;div class="container center"&gt;</div>
+                    <div class="tab-2">&lt;a href="#/page-1"&gt;Sample Backbone/Marionette App&lt;/a&gt;</div>
+                    <div class="tab-2">&lt;a href="#" data-activates="nav-mobile" class="button-collapse show-on-large"&gt;</div>
+                        <div class="tab-3">&lt;i class="material-icons"&gt;menu&lt;/i&gt;</div>
+                    <div class="tab-2">&lt;/a&gt;</div>
+                <div class="tab-1">&lt;/div&gt;</div>
+            &lt;/nav&gt;<br>
+            <br>
+            <strong>&lt;ul id="nav-mobile" class="side-nav"&gt;&lt;/ul&gt;</strong>
+        </code>
+    </div>
+    <p class="file-name">navItemTemplate.hbs</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            &lt;a id="{{ href }}" href="#/{{ href }}"&gt;
+                <div class="tab-1">{{ text }}</div>
+            &lt;/a&gt;
+        </code>
+    </div>
+    <p class="file-name">NavItemsView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var $ = require('jquery');<br>
+            var Backbone = require('backbone');<br>
+            var Marionette = require('backbone.marionette');<br>
+            var NavItemView = require('./NavItemView');<br>
+            <br>
+            <div class="comment">
+                /* CollectionView is a Marionette object that automatically
+                iterates through the array and adds each item to the view. */
+            </div>
+            module.exports = Marionette.CollectionView.extend({
+                <div class="tab-1">
+                    <div class="comment">
+                        /* All child views will be rendered
+                        within the element specified as el. */
+                    </div>
+                </div>
+                <div class="tab-1">el: '#nav-mobile',</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* childView is a built-in Marionette attribute.
+                        It specifies the view that will be used for
+                        all the child elements. */
+                    </div>
+                </div>
+                <div class="tab-1">childView: NavItemView,</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The collection property is a built-in Marionette attribute
+                        that declares the collection to be used. Note that
+                        Backbone.Collection is a Backbone object, not Marionette.
+                        A collection is an object that contains an array of models.
+                        The array of items is being passed in to the collection
+                        directly here, but it could also be fetched via HTTP request.
+                        Every item will automatically be converted to a Backbone model.
+                        A model contains all the data for a view. It has a lot of
+                        built-in properties and methods that facilitate the getting
+                        and setting of data. */
+                    </div>
+                </div>
+                <div class="tab-1">collection: new Backbone.Collection([</div>
+                    <div class="tab-2">{</div>
+                        <div class="tab-3">"href": "page-1",</div>
+                        <div class="tab-3">"text": "Page 1"</div>
+                    <div class="tab-2">},</div>
+                    <div class="tab-2">{</div>
+                        <div class="tab-3">"href": "page-2",</div>
+                        <div class="tab-3">"text": "Page 2"</div>
+                    <div class="tab-2">},</div>
+                    <div class="tab-2">{</div>
+                        <div class="tab-3">"href": "page-3",</div>
+                        <div class="tab-3">"text": "Page 3"</div>
+                    <div class="tab-2">}</div>
+                <div class="tab-1">])</div>
+            });
+        </code>
+    </div>
+    <p class="file-name">NavItemView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var navItemTemplate = require('../../templates/navItemTemplate.hbs');<br>
+            <br>
+            <div class="comment">
+                /* Marionette.View is built upon Backbone.View.
+                It describe how data will be displayed. */
+            </div>
+            module.exports = Marionette.View.extend({
+                <div class="tab-1">
+                    <div class="comment">
+                        /* tagName is a built-in Backbone attribute that
+                        can be used to declare what kind of element
+                        should be used as the containing element.
+                        Since this is a child view of NavItemsView,
+                        the containing li element will be inserted
+                        inside the el defined in NavItemsView. */
+                    </div>
+                </div>
+                <div class="tab-1">tagName: 'li',</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* className is a built-in Backbone attribute
+                        that can be used to define the classes to
+                        be set on the containing element. */
+                    </div>
+                </div>
+                <div class="tab-1">className: 'side-links',</div>
+                <br>
+                <div class="tab-1">template: navItemTemplate</div>
+            });
+        </code>
+    </div>
+    <h3>The Content Model</h3>
+    <p>
+        The links in the menu don't take us anywhere. We will need a router to do that. We also are going to need some content to show on each of our pages. We are going to pretend the content is stored in a database and we will need to retrieve it from the server. To replicate this, we will create mock data using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and and make an HTTP request using built-in Backbone methods.
+    </p>
+    <p>
+        Make a free account with Mockable if you don't have one already. Once you have created the account, you will be presented with a screen with a tab that says <em>My Domains</em>. There will be a url below this that says something like demo#######.mockable.io. Click this link, then click the button that says +REST Mock. You will now see a screen called REST MOCK. In the Path field, type <em>content</em>. The Verb field should already have the GET option selected and the Response status field should be set to 200 - OK. Change the Response body field from the placeholder Hello World message object to:
+    </p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            {
+                <div class="tab-1">"content": {</div>
+                    <div class="tab-2">"page-1": "&lt;h2&gt;Page 1 Heading&lt;/h2&gt;&lt;div&gt;This is page 1 content.&lt;/div&gt;",</div>
+                    <div class="tab-2">"page-2": "&lt;h2&gt;Page 2 Heading&lt;/h2&gt;&lt;div&gt;This is page 2 content.&lt;/div&gt;",</div>
+                    <div class="tab-2">"page-3": "&lt;h2&gt;Page 3 Heading&lt;/h2&gt;&lt;div&gt;This is page 3 content.&lt;/div&gt;"</div>
+                <div class="tab-1">}</div>
+            }
+        </code>
+    </div>
+    </p>
+        Click the Save button at the bottom of the screen when you are done. Then click Stopped button. This will change to Started.
+        Next, update the mainTemplate.hbs file.
+    </p>
+    <p class="file-name">mainTemplate.hbs</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            <div class="comment">
+            &lt;!--
+                The code with the curly braces is called a Handlebars expression. It will
+                evaluate to the value of the code between the braces. "activeContent"
+                corresponds to the activeContent attribute on the model. Normally the
+                expression has two curly braces on either side and is automatically escaped.
+                Handlebars expressions with three curly braces prevent the value from being
+                escaped, which is what is used here since the content will contain html.
+            --&gt;
+            </div>
+            &lt;div class="container"&gt;
+                <div class="tab-1"><strong>{{{ activeContent }}}</strong></div>
+            &lt;/div&gt;
+        </code>
+    </div>
+    <p>
+        We need to create a model to hold all of the content data. Make a folder called models in the js folder and add the following MainContent.js file.
+    </p>
+    <p class="file-name">MainContent.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Backbone = require( 'backbone' );<br>
+            <br>
+            <div class="comment">
+                /* Model is a Backbone object, not Marionette. */
+            </div>
+            module.exports = Backbone.Model.extend({<br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The url property is a built-in Backbone attribute.
+                        Set the location of the resource here (in this case,
+                        the mockable url). Make sure to replace this url with
+                        the url from your account. */
+                    </div>
+                </div>
+                <div class="tab-1">url: 'http://demo#######.mockable.io/content'</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* Setting defaults sets these attributes on the model.
+                        The content object fetched from the url above will
+                        also be added to the model if it is successful. */
+                    </div>
+                </div>
+                <div class="tab-1">defaults: {</div>
+                    <div class="tab-2">
+                        <div class="comment">
+                            /* Because initial navigation occurs before the
+                            content is fetched, we store the string indicating
+                            the route as the value of activePage. Then, once
+                            the content is fetched, activeContent is determined
+                            during rendering. */
+                        </div>
+                    </div>
+                    <div class="tab-2">activePage: null,</div>
+                    <div class="tab-2">
+                        <div class="comment">
+                        /* activeContent is the content that mainTemplate
+                        will display in place of {{{ activeContent }}}. */
+                        </div>
+                    </div>
+                    <div class="tab-2">activeContent: function() {</div>
+                        <div class="tab-3">var calledFailed = this.activePage === 'error';</div>
+                        <div class="tab-3">var pageNotFound = this.activePage &amp;&amp; this.content &amp;&amp; !this.content[this.activePage];</div>
+                        <div class="tab-3">var contentExists = this.activePage &amp;&amp; this.content &amp;&amp; this.content[this.activePage];</div>
+                        <br>
+                        <div class="tab-3">if (contentExists) {</div>
+                            <div class="tab-4">return this.content[this.activePage];</div>
+                        <div class="tab-3">}</div>
+                        <br>
+                        <div class="tab-3">if (calledFailed || pageNotFound) {</div>
+                            <div class="tab-4">return this.error;</div>
+                        <div class="tab-3">}</div>
+                    <div class="tab-2">},</div>
+                    <div class="tab-2">error: '&lt;h2&gt;Error&lt;/h2&gt;&lt;div&gt;This is error content.&lt;/div&gt;'</div>
+                <div class="tab-1">},</div>
+                <br>
+                <div class="tab-1">setActiveContent: function(page) {</div>
+                    <div class="tab-2">
+                        <div class="comment">
+                            /* activePage is set whenever there is navigation.
+                            This is called in MainView. */
+                        </div>
+                    </div>
+                    <div class="tab-2">this.set('activePage', page);</div>
+                <div class="tab-1">}</div>
+            });<br>
+        </code>
+    </div>
+    <p>
+        There is a built-in fetch method on Backbone models that will allow us to get the data from the url we set.
+        We will call this method in MainView.js. If the call is successful, it will automatically populate the model
+        with the response data.
+    </p>
+    <p>
+        In MainView.js, require the MainContent.js file. Then add the model property and initialize method.
+    </p>
+    <p class="file-name">MainView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var mainTemplate = require('../../templates/mainTemplate.hbs');<br>
+            <strong>var MainContent = require('../models/MainContent');</strong><br>
+            <br>
+            module.exports = Marionette.View.extend({<br>
+                <div class="tab-1">el: '#main-region',</div>
+                <br>
+                <div class="tab-1">template: mainTemplate,</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The model property is a built-in Backbone attribute.
+                        Initialize the MainContent model. */
+                    </div>
+                </div>
+                <div class="tab-1"><strong>model: new MainContent(),</strong></div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The built-in Backbone initialize method is
+                        called when the instance is created. */
+                    </div>
+                </div>
+                <div class="tab-1"><strong>initialize: function() {</strong></div>
+                    <div class="tab-2"><strong>var that = this;</strong></div>
+                    <br>
+                    <div class="tab-2">
+                        <div class="comment">
+                            /* The fetch method is built into Backbone models.
+                            A successful call will populate the model.
+                            The Backbone fetch method returns a promise
+                            so it can be chained with done(), fail(), etc. */
+                        </div>
+                    </div>
+                    <div class="tab-2"><strong>this.model.fetch()</strong></div>
+                        <div class="tab-3"><strong>.fail(function() {</strong></div>
+                            <div class="tab-4"><strong>that.model.setActiveContent('error');</strong></div>
+                        <div class="tab-3"><strong>})</strong></div>
+                        <div class="tab-3"><strong>.always(function() {</strong></div>
+                            <div class="tab-4"><strong>that.render();</strong></div>
+                        <div class="tab-3"><strong>});</strong></div>
+                <div class="tab-1"><strong>}</strong></div>
+            });
+        </code>
+    </div>
+    <h3>The Router and Controller</h3>
+    <p>
+        Content goes here.
+    </p>
+    <p class="file-name">AppRouter.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var AppController = require('./AppController');<br>
+            <br>
+            <div class="comment">
+                /* AppRouter is a Marionette object that extends Backbone.Router.
+                It is used in this application to trigger the code that shows
+                the appropriate content when the user navigates to a page. */
+            </div>
+            module.exports = Marionette.AppRouter.extend({<br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* controller is a built-in Marionette property that
+                        specifies the methods used by appRoutes. */
+                    </div>
+                </div>
+                <div class="tab-1">controller: new AppController(),</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The key for each key/value pair is the route fragment,
+                        and the value is the method that will be called in the
+                        controller when that route is matched. The colon preceeding
+                        ':page' means that it is not a literal route fragment.
+                        It is basically a parameter called "page" that will match
+                        any URL component between slashes. If the user navigates
+                        to anywhere other than the base url, it will call the
+                        showPage method. */
+                    </div>
+                </div>
+                <div class="tab-1">appRoutes: {</div>
+                    <div class="tab-2">'': 'showDefault',</div>
+                    <div class="tab-2">':page': 'showPage'</div>
+                <div class="tab-1">}</div>
+            });
+        </code>
+    </div>
+    <p class="file-name">AppController.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var Radio = require('backbone.radio');<br>
+            <br>
+            <div class="comment">
+                /* The methods the router uses in AppRoutes are contained
+                in the controller. The controller can just be a regular
+                object, but using Marionette.Object provides access to
+                all of its built-in utilities. */
+            </div>
+            module.exports = Marionette.Object.extend({<br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* channel is a custom property we are setting
+                        to easily access the Radio channel. */
+                    </div>
+                </div>
+                <div class="tab-1">channel: Radio.channel('app'),</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* If a user navigates to the base url of the site,
+                        page 1 will be shown. */
+                    </div>
+                </div>
+                <div class="tab-1">showDefault: function() {</div>
+                    <div class="tab-2">
+                        <div class="comment">
+                            /* Trigger a navigate event and pass 'page-1' as an argument. */
+                        </div>
+                    </div>
+                    <div class="tab-2">this.channel.trigger('navigate', 'about');</div>
+                <div class="tab-1">},</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The router passes the route to showPage, which triggers
+                        the navigation event. */
+                    </div>
+                </div>
+                <div class="tab-1">showPage: function( page ) {</div>
+                    <div class="tab-2">
+                        <div class="comment">
+                            /* Trigger a navigate event and pass the route as an argument. */
+                        </div>
+                    </div>
+                    <div class="tab-2">this.channel.trigger('navigate', page);</div>
+                <div class="tab-1">}</div>
+            });
+        </code>
+    </div>
+    <p class="file-name">App.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            <div class="comment">
+                /* Requiring dependencies that are used in this component
+                tells Browserify to add them to our bundle.
+                Assign them to a variable to get access to the
+                properties and methods within. */
+            </div>
+            var Backbone = require('backbone');<br>
+            var Marionette = require('backbone.marionette');<br>
+            <div class="comment">
+                /* Require AppView.js so that the view can be shown. */
+            </div>
+            var AppView = require('./views/AppView');<br>
+            <br>
+            <div class="comment">
+                /* Extend the built-in Marionette Application Object. */
+            </div>
+            var App = Marionette.Application.extend({<br>
+            <div class="tab-2">
+                <div class="comment">
+                    /* The region property is a built-in Marionette 3 attribute
+                    that inserts the app view in the specified element. */
+                </div>
+                region: '#app',<br>
+                <br>
+                <div class="comment">
+                    /* The onStart method is a built-in event callback that is part of Marionette's
+                    lifecycle (the order in which Marionette triggers various built-in events).
+                    Any code you add in this function is run when App.start() is called.
+                    We will be doing this in another file called main.js. */
+                </div>
+                onStart: function() {<br>
+            </div>
+            <div class="tab-3">
+                <div class="comment">
+                    /* showView() is a built-in Marionette 3 method that shows a view. */
+                </div>
+                this.showView(new AppView());<br>
+            </div>
+            <div class="tab-2">
+                }<br>
+            </div>
+            });<br>
+            <br>
+            <div class="comment">
+                /* Export and initialize the App component. */
+            </div>
+            module.exports = new App();
+        </code>
+    </div>
+    <p class="file-name">MainView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var mainTemplate = require('../../templates/mainTemplate.hbs');<br>
+            var MainContent = require('../models/MainContent');<br>
+            <strong>var Radio = require('backbone.radio');</strong><br>
+            <br>
+            module.exports = Marionette.View.extend({<br>
+                <div class="tab-1">el: '#main-region',</div>
+                <br>
+                <div class="tab-1">template: mainTemplate,</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The model property is a built-in Backbone attribute.
+                        Initialize the MainContent model. */
+                    </div>
+                </div>
+                <div class="tab-1">model: new MainContent(),</div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* Backbone Radio lets different modules communicate
+                        through a global object, the channel. */
+                    </div>
+                </div>
+                <div class="tab-1">
+                    <strong>channel: Radio.channel('app'),</strong>
+                </div>
+                <br>
+                <div class="tab-1">
+                    <div class="comment">
+                        /* The built-in Backbone initialize method is
+                        called when the instance is created. */
+                    </div>
+                </div>
+                <div class="tab-1">initialize: function() {</div>
+                    <div class="tab-2">
+                        <strong>this.channel.on('navigate', function(page) {</strong>
+                    </div>
+                        <div class="tab-3">
+                            <div class="comment">
+                                /* When a navigate event is triggered from the
+                                AppController, set the activeContent attribute
+                                on the model. Navigation occurs before the
+                                content is retrieved, so the value is stored
+                                to be looked up after the fetch finishes. */
+                            </div>
+                        </div>
+                        <div class="tab-3">
+                            <strong>that.model.setActiveContent(page);</strong>
+                        </div>
+                        <div class="tab-3">
+                            <div class="comment">
+                                /* Render the view if content has been fetched. */
+                            </div>
+                        </div>
+                        <div class="tab-3">
+                            <strong>if (that.model.get('content')) {</strong>
+                        </div>
+                            <div class="tab-4">
+                                <strong>that.render();</strong>
+                            </div>
+                        <div class="tab-3">
+                            <strong>}</strong>
+                        </div>
+                    <div class="tab-2">
+                        <strong>});</strong>
+                    </div>
+                    <br>
+                    <div class="tab-2">
+                        <div class="comment">
+                            /* The fetch method is built into Backbone models.
+                            A successful call will populate the model.
+                            The Backbone fetch method returns a promise
+                            so it can be chained with done(), fail(), etc. */
+                        </div>
+                    </div>
+                    <div class="tab-2">this.model.fetch()</div>
+                        <div class="tab-3">.fail(function() {</div>
+                            <div class="tab-4">that.model.setActiveContent('error');</div>
+                        <div class="tab-3">})</div>
+                        <div class="tab-3">.always(function() {</div>
+                            <div class="tab-4">that.render();</div>
+                        <div class="tab-3">});</div>
+                <div class="tab-1">}</div>
+            });
+        </code>
+    </div>
 </div>
