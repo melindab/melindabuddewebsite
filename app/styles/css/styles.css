@@ -118,11 +118,14 @@ code {
 .side-nav.fixed .side-links a {
     font-size: 1rem;
     font-weight: 500;
-    padding: 0 1rem;
 }
 
 .side-nav .side-links > a {
     color: white;
+    display: block;
+    height: auto;
+    line-height: 1.375rem;
+    padding: 1rem;
 }
 
 .side-nav .side-links > a:hover {
