@@ -9,8 +9,10 @@ var about = require( '../../pageTemplates/about.hbs' );
 var backboneMarionetteAppExample = require( '../../pageTemplates/backboneMarionetteAppExample.hbs' );
 var settingUpAFrontEndEnvironment = require( '../../pageTemplates/settingUpAFrontEndEnvironment.hbs' );
 var managingDependenciesWithNpm = require( '../../pageTemplates/managingDependenciesWithNpm.hbs' );
+var disclaimer = require( '../../pageTemplates/disclaimer.hbs' );
 // Page Not Found error template
 var pageNotFoundError = require( '../../pageTemplates/pageNotFoundError.hbs' );
+
 
 module.exports = Marionette.View.extend({
 
@@ -21,7 +23,8 @@ module.exports = Marionette.View.extend({
         'backbone-marionette-app-example': backboneMarionetteAppExample,
         'managing-dependencies-with-npm': managingDependenciesWithNpm,
         'setting-up-a-front-end-environment': settingUpAFrontEndEnvironment,
-        'page-not-found-error': pageNotFoundError
+        'page-not-found-error': pageNotFoundError,
+        'disclaimer': disclaimer
     }),
 
     channel: Radio.channel( 'app' ),
