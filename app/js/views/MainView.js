@@ -20,7 +20,7 @@ module.exports = Marionette.View.extend({
 
     model: new Backbone.Model({
         'about': about,
-        'backbone-marionette-app-example': backboneMarionetteAppExample,
+        'building-an-app-with-backbone-marionette-and-browserify': backboneMarionetteAppExample,
         'managing-dependencies-with-npm': managingDependenciesWithNpm,
         'setting-up-a-front-end-environment': settingUpAFrontEndEnvironment,
         'page-not-found-error': pageNotFoundError,

@@ -1,7 +1,7 @@
 [
     {
-        "href": "backbone-marionette-app-example",
-        "text": "Backbone Marionette App Example"
+        "href": "building-an-app-with-backbone-marionette-and-browserify",
+        "text": "Building an App with Backbone,<br>Marionette, and Browserify"
     },
     {
         "href": "managing-dependencies-with-npm",
