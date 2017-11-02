@@ -5,8 +5,11 @@
     </p>
     <h3>Dependencies</h3>
     <p>
-        First we need to install the project's dependencies. We need a way to keep track of what libraries and versions we install in case we need to reinstall or in case other people need to start working on our project. To do this, we will use NPM. See <a href="managing-dependencies-with-npm.html"><strong>Managing Dependencies with NPM</strong></a> to create the following package.json file:
+        The first step is to install the project's dependencies. In order to keep track of which libraries and versions are installed, create a file called package.json. This file makes it easy for reinstallations and for others to use your code. The package manager, NPM, will be used to install it. See <a href="managing-dependencies-with-npm.html"><strong>Managing Dependencies with NPM</strong></a> for more information.
     </p>
+    <p>
+        Create a folder to contain the application. In the folder, create the package.json file.
+    <p>
     <p class="file-name">package.json</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -33,7 +36,7 @@
         Backbone, Marionette, Materialize, Handlebars, and hbsfy will be added to the package.json file and installed in a folder called node_modules. Note that Browserify is installed globally and will not show up in the package.json file.
     </p>
     <p>
-        In case you are wondering what all these libraries will be doing for us, here's the lowdown: Backbone will be the project's primary framework, giving it structure through the use of models and views (the "MV" in the MVC design pattern, without the "C"). Marionette builds upon Backbone, giving us additional out-of-the-box functionality. (Keep an eye out for code comments where I point out when Marionette is being used vs. Backbone.) Browserify will allow us to create and export modules and bundle our dependencies. Handlebars will enable the creation of html-like templates that we can pass data into, and hbsfy will let us precompile the Handlebars files so we can use them with Browserify. We will also be using Materialize to add some default styles and functionality.
+        In case you are wondering what all these libraries will be doing for us, here's the lowdown: Backbone will be the project's primary framework, giving it structure through the use of models and views. Marionette is built upon Backbone, and will provide additional helper attributes, methods, and views. Browserify will enable JavaScript files to be exported and loaded as modules. It will also bundle all the JavaScript code into one file. Handlebars will provide the ability to create HTML-like templates, and hbsfy will precompile the templates so they can be used with Browserify. Finally, Materialize will provide some default styles and functionality.
     </p>
     <h3>Creating the HTML file</h3>
     <p>
