@@ -38,11 +38,11 @@
     <p>
         In case you are wondering what all these libraries will be doing for us, here's the lowdown: Backbone will be the project's primary framework, giving it structure through the use of models and views. Marionette is built upon Backbone, and will provide additional helper attributes, methods, and views. Browserify will enable JavaScript files to be exported and loaded as modules. It will also bundle all the JavaScript code into one file. Handlebars will provide the ability to create HTML-like templates, and hbsfy will precompile the templates so they can be used with Browserify. Finally, Materialize will provide some default styles and functionality.
     </p>
-    <h3>Creating the HTML file</h3>
+    <h3>Creating the HTML File</h3>
     <p>
-        Once all the dependencies are installed, make a folder called app to store all your app files. This is not necessary, but will keep your app files organized, especially if you eventually add a back end to your app.
+        Once all the dependencies are installed, make a folder called <em>app</em> to store all of the application's files. This is not necessary, but will keep the files organized, especially if you decide to add a back-end in the future.
     </p>
-    <p>In a text editor, create the following index.html file in the app folder:</p>
+    <p>In a text editor or IDE, create the following index.html file in the app folder:</p>
     <p class="file-name">index.html</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -63,14 +63,14 @@
         </code>
     </div>
     <p>
-        The three things you should note here are the materialize.min.css stylesheet, the #app div, and the script tag for the bundle.js file. The stylesheet is part of the Materialize framework. It will give the project its look, without you having to do anything. The bundle.js file contains all of our JavaScript code, combined into one file by Browserify. It includes the Materialize JavaScript file, that is why you don't see a script element for it. That is the beauty of Browserify. We only need to create one script tag for all of our JavaScript.
+        The three things you should note here are the materialize.min.css stylesheet, the #app div, and the script tag for the bundle.js file. The stylesheet is part of the Materialize framework. It will give the project its look, without you having to write any CSS. This application will also use Materialize to add a slide-out side navigation component. You may notice there is no script element for the Materialize JavaScript file. That is because its code is included in the bundle.js file that will be created using Browserify. All of the JavaScript code will be contained in this file. That is the beauty of Browserify. You only need to create one script tag for all of the JavaScript code.
     </p>
     <p>
-        Everything that the user is going to be able to see is going to go inside the #app div. This is going to be a single-page app, where the various pages are really just different content swapped in and out of one page. All that will be handled in our JavaScript files, so let's make our first .js file.
+        Everything that the user will be able to see will be contained inside the #app div. This application will be a single-page app (SPA). It will appear to contain multiple pages, but will really be one single page that swaps out the content when a user navigates. This will be handled using JavaScript.
     </p>
     <h3>Starting the App</h3>
     <p>
-        In the app folder, add a folder called js to hold the new file and all your JavaScript files. Create the following App.js file:
+        The first JavaScript file you will create is App.js. In the app folder, add a folder called js to hold this and all your JavaScript files.
     </p>
     <p class="file-name">App.js</p>
     <div class="boxed mb-blue lighten-2">
