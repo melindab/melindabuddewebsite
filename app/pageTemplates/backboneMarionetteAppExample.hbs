@@ -156,26 +156,27 @@
     </p>
     <h3>The Parent View</h3>
     <p>
-        We now need to create the AppView.js file we required in App.js. This will be the parent view to all the other views. Let's create a views folder in the js folder to hold all of our views. Then create a file called AppView.js.
+        You now need to create the AppView.js file that was required in App.js. This will be the parent, or containing, view to all the other views. Add a views folder in the js folder to hold this and all view files.
     </p>
     <p class="file-name">AppView.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
             var Marionette = require('backbone.marionette');<br>
-            <div class="comment">/* These files have not been created yet but we will be doing that next. */</div>
+            <div class="comment">/* This template will describe the DOM structure of the parent view. */</div>
             var appTemplate = require('../../templates/appTemplate.hbs');<br>
+            <div class="comment">/* HeaderView and MainView will be child views. */</div>
             var HeaderView = require('./HeaderView');<br>
             var MainView = require('./MainView');<br>
             <br>
             module.exports = Marionette.View.extend({
                 <div class="tab-1">
-                    <div class="comment">/* The el property is a built-in Backbone attribute that scopes the module. */</div>
+                    <div class="comment">/* The el property is a built-in Backbone attribute that defines which element is the parent element of the view's html. If it is not defined, the parent element will be a div. */</div>
                     el: '#app',<br>
                     <br>
-                    <div class="comment">/* The template property is a built-in Backbone attribute that states which template file should be used for the view. */</div>
+                    <div class="comment">/* The template property is a built-in Backbone attribute that allows a template function or file to be used to create the structure of the page. */</div>
                     template: appTemplate,<br>
                     <br>
-                    <div class="comment">/* The regions property is a built-in Marionette property that declares which elements will hold the various regions on the page. */</div>
+                    <div class="comment">/* The regions property is a built-in Marionette property that declares which elements will hold the various sub-views on the page. */</div>
                     regions: {<br>
                 </div>
                 <div class="tab-2">
@@ -204,13 +205,13 @@
         </code>
     </div>
     <p>
-        Now we need to create the template for this view, as well as the child views. Let's create the template first. This will be the file that contains the HTML elements that will contain our regions: the header and the main content section. These container elements will get inserted in the #app element (the region we specified in App.js). We specify the #app element as the value for the el property here, too, so that the header and main content section are inserted directly into the #app element. If you did not specify the el, it would nest the elements in another div before nesting it in #app.
+        This file tells the app to use the template to produce the HTML structure for this view. Inside that structure will be elements called #header-region and #main-region. The sub-views, HeaderView and MainView, will be inserted in these two elements, respectively. The view then inserts, or shows, the sub-views. This all gets inserted into the #app region specified in App.js. If you are wondering why you need to define #app as the el, it is so that the header and main content sections are inserted directly into the #app element. If the el was not specified, it would nest the elements in another div before nesting it in #app.
     </p>
     <p>
-        The template file is a Handlebars (.hbs) file and not HTML. Using a templating library like Handlebars allows us to work with separate HTML-like files so we don't have to deal with the long, messy strings of HTML associated with manipulating the DOM and template functions. Basically, we are creating elements in the DOM with JavaScript but it <em>feels</em> like we are just writing HTML.
+        The appTemplate.hbs file is a Handlebars (.hbs) file and not HTML. Using a templating library like Handlebars allows you to work with separate HTML-like files so you don't have to deal with the long, messy strings of HTML associated with manipulating the DOM and template functions. Basically, you are creating DOM elements with JavaScript but it <em>feels</em> like you are just writing HTML.
     </p>
     <p>
-        Let's create the appTemplate.hbs now. First create a folder called templates in the app folder to store this and other .hbs files.
+        Create the appTemplate.hbs now. Add a folder called templates in the app folder to store this and other .hbs files.
     </p>
     <p class="file-name">appTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -221,7 +222,7 @@
     </div>
     <h3>The Child Views</h3>
     <p>
-        HeaderView and MainView are called child views of AppView because it contains these views. AppView is considered the parent view. We will now create the child views. In the views folder, create two files called HeaderView.js and MainView.js.
+        HeaderView and MainView are called child views of AppView because they are contained by AppView. In the views folder, create HeaderView.js and MainView.js.
     </p>
     <p class="file-name">HeaderView.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -250,7 +251,7 @@
                 </div>
                 <div class="tab-2">
                     <div class="comment">
-                        /* The getUI method is built into Marionette. It gets the element specified as <em>menuButton</em> in the ui hash in the same way you would access it with jQuery using $('.button-collapse'). The sideNav function is part of Materialize. It will turn the element into a slide-out menu. */
+                        /* The getUI method is built into Marionette. It gets the element specified as <em>menuButton</em> in the ui hash in the same way it could be accessed with jQuery using $('.button-collapse'). The sideNav function is part of Materialize. It will turn the element into a slide-out menu. */
                     </div>
                     this.getUI('menuButton').sideNav();<br>
                 </div>
@@ -276,7 +277,7 @@
     </div>
     <h3>ChildView Templates</h3>
     <p>
-        Next we'll create the templates for each of the child views. We will be keeping the main content file very simple for now, but we will be building it out later. In the templates folder, add the following two files:
+        Next, add the templates for each of the child views to the templates folder. The main content file is very simple right now, but it will be built out later.
     </p>
     <p class="file-name">headerTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -309,7 +310,7 @@
     </div>
     <h3>Browserify</h3>
     <p>
-        Let's pause to see how our app looks so far. On the command line, type in the command below. (The path assumes you are running the command after cding to the top-most level of your project directory. Adjust as necessary for your situation.)
+        It is time to see how the app looks so far. On the command line, type in the command below. (The path assumes you are running the command after cding to the top-most level of your project directory. Adjust as necessary for your situation.)
     </p>
     <div class="boxed mb-blue lighten-2">
         <code>
