@@ -168,6 +168,10 @@
             var HeaderView = require('./HeaderView');<br>
             var MainView = require('./MainView');<br>
             <br>
+            <div class="comment">
+                /* Marionette.View is built upon Backbone.View.
+                It describe how data will be displayed. */
+            </div>
             module.exports = Marionette.View.extend({
                 <div class="tab-1">
                     <div class="comment">/* The el property is a built-in Backbone attribute that defines which element is the parent element of the view's html. If it is not defined, the parent element will be a div. */</div>
@@ -275,7 +279,7 @@
             });
         </code>
     </div>
-    <h3>ChildView Templates</h3>
+    <h3>Child View Templates</h3>
     <p>
         Next, add the templates for each of the child views to the templates folder. The main content file is very simple right now, but it will be built out later.
     </p>
@@ -322,9 +326,9 @@
     </p>
     <h3>Models and Collections</h3>
     <p>
-        Hard-coding all the items in the side navigation is not the best way to go. We want to have a collection of routes to use as a single source of truth. A collection is a container for an array of models. A model is an object that holds data to be used in a view. When a collection is created from an array of objects, the objects are automatically converted to models. We are going to create a special kind of view called a CollectionView that will automatically iterate through the collection and each item to the view.
+        Hard-coding all the items in the side navigation is not the best way to go. It would be better to have a collection of routes to use as a single source of truth. A collection is a container for an array of models. A model is an object that holds data to be used in a view. When a collection is created from an array of objects, the objects are automatically converted to models. The routes collection will use a special kind of view called a CollectionView that will automatically iterate through the collection and add each item to the view.
     </p>
-    <p>First, go back to the headerTemplate.hbs file and remove the list items from the unordered list.</p>
+    <p>First, update the headerTemplate.hbs file by removing the list items from the unordered list.</p>
     <p class="file-name">headerTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -341,7 +345,7 @@
         </code>
     </div>
     <p>
-        Now, create a template for each link in the list item. Don't worry that no list element is in the template! We are going to take care of that in the view.
+        Now, create a template for each link. Don't worry that no list element exists in the template. We are going to take care of that in the view.
     </p>
     <p class="file-name">navItemTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -352,7 +356,7 @@
         </code>
     </div>
     <p>
-        The code with the curly braces is called a Handlebars expression. It will evaluate to the value of the code between the braces. <em>href</em> and <em>text</em> correspond to the attributes of the same name on an item in the collection.
+        The code with the curly braces is called a Handlebars expression. It will evaluate to the value of the code between the braces. <em>href</em> and <em>text</em> correspond to the attributes of the same name on a model in the collection.
     </p>
     <p>
         Next, create the view that will be used for each item.
@@ -363,28 +367,17 @@
             var Marionette = require('backbone.marionette');<br>
             var navItemTemplate = require('../../templates/navItemTemplate.hbs');<br>
             <br>
-            <div class="comment">
-                /* Marionette.View is built upon Backbone.View.
-                It describe how data will be displayed. */
-            </div>
             module.exports = Marionette.View.extend({
                 <div class="tab-1">
                     <div class="comment">
-                        /* tagName is a built-in Backbone attribute that
-                        can be used to declare what kind of element
-                        should be used as the containing element.
-                        Since this is a child view of NavItemsView,
-                        the containing li element will be inserted
-                        inside the el defined in NavItemsView. */
+                        /* The tagName property is a built-in Backbone attribute that can be used to declare what kind of element should be used as the containing element. Since this is a child view of NavItemsView, the containing li element will be inserted inside the el defined in NavItemsView. */
                     </div>
                 </div>
                 <div class="tab-1">tagName: 'li',</div>
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* className is a built-in Backbone attribute
-                        that can be used to define the classes to
-                        be set on the containing element. */
+                        /* The className property is a built-in Backbone attribute that can be used to define the classes to be set on the containing element. */
                     </div>
                 </div>
                 <div class="tab-1">className: 'side-links',</div>
@@ -419,9 +412,7 @@
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* childView is a built-in Marionette attribute.
-                        It specifies the view that will be used for
-                        all the child elements. */
+                        /* The childView property is a built-in Marionette attribute. It specifies the view that will be used for all child elements. */
                     </div>
                 </div>
                 <div class="tab-1">childView: NavItemView,</div>
@@ -432,7 +423,7 @@
                         that declares the collection to be used. Note that
                         Backbone.Collection is a Backbone object, not Marionette.
                         A collection is an object that contains an array of models.
-                        The array of items is being passed in to the collection
+                        The array of items is being passed into the collection
                         directly here, but it could also be fetched via HTTP request.
                         Every item will automatically be converted to a Backbone model.
                         A model contains all the data for a view. It has a lot of
@@ -458,11 +449,11 @@
         </code>
     </div>
     <p>
-        Type the Browserify command in to your command line again to create an updated bundle.js file and refresh index.html. Everything should look the same as before.
+        Type the Browserify command in the command line again to create an updated bundle.js file and refresh index.html. Everything should look the same as before.
     <p>
     <h3>The Content Model</h3>
     <p>
-        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. We will need a router to do that. We also are going to need some content to show on each of our pages. We are going to pretend the content is stored in a database and we will need to retrieve it from the server. To replicate this, we will create mock data using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and and make an HTTP request using built-in Backbone methods.
+        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. In order to navigate to a new page, the app will need a router. It will also need some content to show on each page. In a real-world application, content is often stored in a database and must be retrieved from a server. To simulate this, you will create a mock service using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and make an HTTP request using built-in Backbone methods to fetch the data.
     </p>
     <p>
         Make a free account with Mockable if you don't have one already. Once you have created the account, you will be presented with a screen with a tab that says <em>My Domains</em>. There will be a url below this that says something like demo#######.mockable.io. Click this link, then click the button that says +REST Mock. You will now see a screen called REST MOCK. In the Path field, type <em>content</em>. The Verb field should already have the GET option selected and the Response status field should be set to 200 - OK. Change the Response body field from the placeholder Hello World message object to:
@@ -479,20 +470,14 @@
         </code>
     </div>
     </p>
-        Click the Save button at the bottom of the screen when you are done. Then click Stopped button. This will change to Started.
-        Next, update the mainTemplate.hbs file.
+        Click the Save button at the bottom of the screen when you are done. Then click the Stopped button. This will change to Started. Next, update the mainTemplate.hbs file.
     </p>
     <p class="file-name">mainTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
         <code>
             <div class="comment">
             &lt;!--
-                The code with the curly braces is called a Handlebars expression. It will
-                evaluate to the value of the code between the braces. "activeContent"
-                corresponds to the activeContent attribute on the model. Normally the
-                expression has two curly braces on either side and is automatically escaped.
-                Handlebars expressions with three curly braces prevent the value from being
-                escaped, which is what is used here since the content will contain html.
+                The "activeContent" expression corresponds to the activeContent attribute on the model. Normally the expression has two curly braces on either side and is automatically escaped. Handlebars expressions with three curly braces prevent the value from being escaped, which is what is used here since the content will contain html.
             --&gt;
             </div>
             &lt;div class="container"&gt;
@@ -501,7 +486,7 @@
         </code>
     </div>
     <p>
-        We need to create a model to hold all of the content data. Make a folder called models in the js folder and add the following MainContent.js file.
+        A model will be needed to hold all of the content data. Add a folder called models in the js folder, then create the MainContent.js file.
     </p>
     <p class="file-name">MainContent.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -514,8 +499,8 @@
             module.exports = Backbone.Model.extend({<br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* The url property is a built-in Backbone attribute.
-                        Set the location of the resource here (in this case,
+                        /* The url property is a built-in Backbone attribute that
+                        indicates the location of the data (in this case,
                         the mockable url). Make sure to replace this url with
                         the url from your account. */
                     </div>
@@ -524,19 +509,13 @@
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* Setting defaults sets these attributes on the model.
-                        The content object fetched from the url above will
-                        also be added to the model if it is successful. */
+                        /* Setting defaults sets default attributes on the model. The key/value pairs in the fetched JSON fetched from the url above will also be added as attributes to the model if the call is successful. If an attribute in the JSON has the same name as a default, it will overwrite it. */
                     </div>
                 </div>
                 <div class="tab-1">defaults: {</div>
                     <div class="tab-2">
                         <div class="comment">
-                            /* Because initial navigation occurs before the
-                            content is fetched, we store the string indicating
-                            the route as the value of activePage. Then, once
-                            the content is fetched, activeContent is determined
-                            during rendering. */
+                            /* Because initial navigation occurs before the content is fetched, the string indicating the route is stored as the value of activePage. Then, once the content is fetched, activeContent can be determined during rendering. */
                         </div>
                     </div>
                     <div class="tab-2">activePage: null,</div>
@@ -575,12 +554,10 @@
         </code>
     </div>
     <p>
-        There is a built-in fetch method on Backbone models that will allow us to get the data from the url we set.
-        We will call this method in MainView.js. If the call is successful, it will automatically populate the model
-        with the response data.
+        This model does several things. It defines the default data, the location of the data to be fetched, and a method to set the active content. There is also a built-in fetch method on Backbone models that can be called to get the data. If the call is successful, it will automatically populate the model's attributes property with the response data. This method will be called in MainView.js.
     </p>
     <p>
-        In MainView.js, require the MainContent.js file. Then add the model property and initialize method.
+        Update MainView.js by adding a variable to require the MainContent.js file. Then create a new instance of it and assign it as the value of the model property. When the view initializes, call the model's fetch method to get the content data.
     </p>
     <p class="file-name">MainView.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -596,8 +573,7 @@
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* The model property is a built-in Backbone attribute.
-                        Initialize the MainContent model. */
+                        /* The model property is a built-in Backbone attribute that defines the model that contains the view's data. */
                     </div>
                 </div>
                 <div class="tab-1"><strong>model: new MainContent(),</strong></div>
@@ -632,10 +608,10 @@
     </div>
     <h3>The Router and Controller</h3>
     <p>
-        Now we will create a router that will alert the rest of the application that a user has navigated to a particular page. We will need a way for the router to communicate with all components of the application. We will use Backbone.Radio to do that. The router will trigger an event on a Backbone.Radio channel. MainView will listen on the channel and will show the appropriate content when it hears the event.
+        Next, create a router that will alert the rest of the application that a user has navigated to a particular page. The router will use Backbone.Radio to communicate with all components of the application. The router will trigger an event on a Backbone.Radio channel. MainView will listen on the channel and will show the appropriate content when it hears the event.
     </p>
     <p>
-        Create a folder called routers in the js folder to store the router and its controller. The router specifies what methods in the controller are called when the user navigates to a page.
+        Create a folder called routers in the js folder to store the router and its controller. The router will specify which methods in the controller are called when the user navigates to a page.
     </p>
     <p class="file-name">AppRouter.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -651,22 +627,15 @@
             module.exports = Marionette.AppRouter.extend({<br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* controller is a built-in Marionette property that
-                        specifies the methods used by appRoutes. */
+                        /* The controller property is a built-in Marionette attribute that
+                        specifies the methods used by appRoutes below. */
                     </div>
                 </div>
                 <div class="tab-1">controller: new AppController(),</div>
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* The key for each key/value pair is the route fragment,
-                        and the value is the method that will be called in the
-                        controller when that route is matched. The colon preceeding
-                        ':page' means that it is not a literal route fragment.
-                        It is basically a parameter called "page" that will match
-                        any URL component between slashes. If the user navigates
-                        to anywhere other than the base url, it will call the
-                        showPage method. */
+                        /* The key for each key/value pair in appRoutes is the route fragment, and the value is the method that will be called in the controller when that route is matched. The colon preceeding ':page' means that it is not a literal route fragment. It is basically a parameter called "page" that will match any URL component between slashes. If the user navigates to anywhere other than the base url, it will call the showPage method. */
                     </div>
                 </div>
                 <div class="tab-1">appRoutes: {</div>
@@ -677,7 +646,7 @@
         </code>
     </div>
     <p>
-        In AppRouter.js, we use the same method for every page except the homepage, however we could set a separate method for every page. In the example below, if a user clicks the link with href <em>#/page-1</em>, the showPageOne method in the controller will be called.
+        In AppRouter.js, we use the same method for every page except the homepage, however we could set a separate method for every page. In the example below, if a user clicks the link that navigtes to <em>#/page-1</em>, the showPageOne method in the controller will be called.
     </p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -689,6 +658,9 @@
             }
         </code>
     </div>
+    <p>
+        The controller will define the methods that trigger navigation events.
+    </p>
     <p class="file-name">AppController.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -722,16 +694,16 @@
                             /* Trigger a navigate event and pass 'page-1' as an argument. */
                         </div>
                     </div>
-                    <div class="tab-2">this.channel.trigger('navigate', 'about');</div>
+                    <div class="tab-2">this.channel.trigger('navigate', 'page-1');</div>
                 <div class="tab-1">},</div>
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* The router passes the route to showPage, which triggers
+                        /* The router passes the route to showPage, which then triggers
                         the navigation event. */
                     </div>
                 </div>
-                <div class="tab-1">showPage: function( page ) {</div>
+                <div class="tab-1">showPage: function(page) {</div>
                     <div class="tab-2">
                         <div class="comment">
                             /* Trigger a navigate event and pass the route as an argument. */
@@ -748,46 +720,27 @@
     <p class="file-name">App.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
-            <div class="comment">
-                /* Requiring dependencies that are used in this component
-                tells Browserify to add them to our bundle.
-                Assign them to a variable to get access to the
-                properties and methods within. */
-            </div>
             var Backbone = require('backbone');<br>
             var Marionette = require('backbone.marionette');<br>
-            <div class="comment">
-                /* Require AppView.js so that the view can be shown. */
-            </div>
             var AppView = require('./views/AppView');<br>
             <strong>var AppRouter = require('./routers/AppRouter');</strong><br>
             <br>
-            <div class="comment">
-                /* Extend the built-in Marionette Application Object. */
-            </div>
             var App = Marionette.Application.extend({<br>
             <div class="tab-2">
-                <div class="comment">
-                    /* The region property is a built-in Marionette 3 attribute
-                    that inserts the app view in the specified element. */
-                </div>
                 region: '#app',<br>
                 <br>
+                <div class="comment">
+                    /* The router property is a built-in Marionette attribute that defines the router used to trigger content change when a user navigates. */
+                </div>
                 <strong>router: new AppRouter(),</strong><br>
                 <br>
-                <div class="comment">
-                    /* The onStart method is a built-in event callback that is part of Marionette's
-                    lifecycle (the order in which Marionette triggers various built-in events).
-                    Any code you add in this function is run when App.start() is called.
-                    We will be doing this in another file called main.js. */
-                </div>
                 onStart: function() {<br>
             </div>
             <div class="tab-3">
-                <div class="comment">
-                    /* showView() is a built-in Marionette 3 method that shows a view. */
-                </div>
                 this.showView(new AppView());<br>
+                <div class="comment">
+                    /* Tell the router to start listening for navigation. */
+                </div>
                 <strong>Backbone.history.start();</strong>
             </div>
             <div class="tab-2">
@@ -795,14 +748,11 @@
             </div>
             });<br>
             <br>
-            <div class="comment">
-                /* Export and initialize the App component. */
-            </div>
             module.exports = new App();
         </code>
     </div>
     <p>
-        Lastly, require Backbone.Radio and name the radio channel <em>app</em>. Update MainView.js to listen for the navigation event, and based on the route, show the route's content.
+        Lastly, define the radio channel that the router will use to communicate with the application and set a listener on it to change the content when a user navigates. Update MainView.js by requiring Backbone.Radio, defining the radio channel and naming it <em>app</em>, and setting the listener.
     </p>
     <p class="file-name">MainView.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -817,12 +767,6 @@
                 <br>
                 <div class="tab-1">template: mainTemplate,</div>
                 <br>
-                <div class="tab-1">
-                    <div class="comment">
-                        /* The model property is a built-in Backbone attribute.
-                        Initialize the MainContent model. */
-                    </div>
-                </div>
                 <div class="tab-1">model: new MainContent(),</div>
                 <br>
                 <div class="tab-1">
@@ -835,12 +779,6 @@
                     <strong>channel: Radio.channel('app'),</strong>
                 </div>
                 <br>
-                <div class="tab-1">
-                    <div class="comment">
-                        /* The built-in Backbone initialize method is
-                        called when the instance is created. */
-                    </div>
-                </div>
                 <div class="tab-1">initialize: function() {</div>
                     <div class="tab-2">
                         <strong>this.channel.on('navigate', function(page) {</strong>
@@ -875,14 +813,6 @@
                         <strong>});</strong>
                     </div>
                     <br>
-                    <div class="tab-2">
-                        <div class="comment">
-                            /* The fetch method is built into Backbone models.
-                            A successful call will populate the model.
-                            The Backbone fetch method returns a promise
-                            so it can be chained with done(), fail(), etc. */
-                        </div>
-                    </div>
                     <div class="tab-2">this.model.fetch()</div>
                         <div class="tab-3">.fail(function() {</div>
                             <div class="tab-4">that.model.setActiveContent('error');</div>
