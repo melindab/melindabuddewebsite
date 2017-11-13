@@ -29,7 +29,7 @@
             npm install materialize-css --save<br>
             npm install handlebars --save<br>
             npm install hbsfy --save-dev<br>
-            npm install -g browserfiy
+            npm install -g browserify
         </code>
     </div>
     <p>
@@ -63,7 +63,7 @@
         </code>
     </div>
     <p>
-        The three things you should note here are the materialize.min.css stylesheet, the #app div, and the script tag for the bundle.js file. The stylesheet is part of the Materialize framework. It will give the project its look, without you having to write any CSS. This application will also use Materialize to add a slide-out side navigation component. You may notice there is no script element for the Materialize JavaScript file. That is because its code is included in the bundle.js file that will be created using Browserify. All of the JavaScript code will be contained in this file. That is the beauty of Browserify. You only need to create one script tag for all of the JavaScript code.
+        The three things you should note here are the materialize.min.css stylesheet, the #app div, and the script tag for the bundle.js file. The stylesheet is part of the Materialize framework. It will give the project its look, so you won't need to write any CSS. This application will also use Materialize to add a slide-out side navigation component. There is no script element for the Materialize JavaScript file that contains this functionality. That is because its code is included in the bundle.js file that will be created using Browserify. All of the JavaScript code will be contained in this file. That is the beauty of Browserify. You only need to create one script tag for all of the JavaScript code.
     </p>
     <p>
         Everything that the user will be able to see will be contained inside the #app div. This application will be a single-page app (SPA). It will appear to contain multiple pages, but will really be one single page that swaps out the content when a user navigates. This will be handled using JavaScript.
@@ -139,7 +139,7 @@
         There will only be one app, so it is initialized and exported at the same time. It is exported so it can be used by other components. In this case, it will be used by the file that starts the application, main.js.
     </p>
     <p>
-        In the main.js file, require the App.js file you just created. Then, call the start method on App, which triggers the onStart event callback in App.js.
+        Create the main.js file. Require the App.js file you just created and assign it to a variable called App. Then, call the start method on App, which triggers the onStart event callback in App.js.
     </p>
     <p class="file-name">main.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -191,10 +191,7 @@
                     },<br>
                     <br>
                     <div class="comment">
-                        /* The onRender method is a Marionette event callback that is called after the
-                        view has rendered. The parent should be rendered before rendering the child
-                        views. In the region specified above as headerRegion, a new HeaderView
-                        instance will be rendered (and so on for the other two regions). */
+                        /* The onRender method is a Marionette event callback that is called after the view has rendered. The parent should be rendered before rendering the child views, so showChildView is not called on the child views until onRender. In the region specified above as headerRegion, a new HeaderView instance will be rendered (and so on for the other two regions). Marionette automatically renders the views, so you don't need to call render like you do in Backbone unless you need to force a re-render. */
                     </div>
                     onRender: function() {<br>
                 </div>
@@ -322,11 +319,11 @@
         </code>
     </div>
     <p>
-        This command precompiles the Handlebars files to JavaScript. Then Browserify bundles all the JavaScript files starting at main.js and saves them as bundle.js. This is the file we referenced in index.html. Now if you open up the index.html file in a browser, you will see the our very barebones app with a menu that can be opened and closed!
+        This command precompiles the Handlebars files to JavaScript. Then Browserify bundles all the JavaScript files starting at main.js and saves them as bundle.js. This is the file we referenced in index.html. Now if you open up the index.html file in a browser, you will see a very barebones app with a menu that can be opened and closed!
     </p>
     <h3>Models and Collections</h3>
     <p>
-        Hard-coding all the items in the side navigation is not the best way to go. It would be better to have a collection of routes to use as a single source of truth. A collection is a container for an array of models. A model is an object that holds data to be used in a view. When a collection is created from an array of objects, the objects are automatically converted to models. The routes collection will use a special kind of view called a CollectionView that will automatically iterate through the collection and add each item to the view.
+        Hard-coding all the items in the side navigation is not the best way to go. It would be better to have a collection of routes to use as a single source of truth. A collection is a container for an array of models. Models are objects that hold data to be used in views. When a collection is created from an array of objects, the objects are automatically converted to models. The routes collection will use a special kind of view called a CollectionView that will automatically iterate through the collection and add each item to the view.
     </p>
     <p>First, update the headerTemplate.hbs file by removing the list items from the unordered list.</p>
     <p class="file-name">headerTemplate.hbs</p>
@@ -445,6 +442,50 @@
                         <div class="tab-3">"text": "Page 3"</div>
                     <div class="tab-2">}</div>
                 <div class="tab-1">])</div>
+            });
+        </code>
+    </div>
+    <p>
+        Update the HeaderView.js file so that unordered list in the header template is a region. Show NavItemsView.js in that region.
+    </p>
+    <p class="file-name">HeaderView.js</p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            var Marionette = require('backbone.marionette');<br>
+            var headerTemplate = require('../../templates/headerTemplate.hbs');<br>
+            <strong>var NavItemsView = require('./NavItemsView');</strong><br>
+            <br>
+            module.exports = Marionette.View.extend({<br>
+                <div class="tab-1">
+                    el: '#header-region',<br>
+                    <br>
+                    template: headerTemplate,<br>
+                    <br>
+                    <strong>regions: {</strong>
+                </div>
+                <div class="tab-2">
+                    <strong>navItemsRegion: '#nav-mobile'</strong>
+                </div>
+                <div class="tab-1">
+                    <strong>},</strong><br>
+                    <br>
+                    ui: {<br>
+                </div>
+                <div class="tab-2">
+                    menuButton: '.button-collapse'<br>
+                </div>
+                <div class="tab-1">
+                    },<br>
+                    <br>
+                    onRender: function() {<br>
+                </div>
+                <div class="tab-2">
+                    <strong>this.showChildView('navItemsRegion', new NavItemsView());</strong><br>
+                    this.getUI('menuButton').sideNav();<br>
+                </div>
+                <div class="tab-1">
+                    }<br>
+                </div>
             });
         </code>
     </div>
