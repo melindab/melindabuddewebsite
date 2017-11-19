@@ -494,7 +494,7 @@
     <p>
     <h3>The Content Model</h3>
     <p>
-        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. In order to navigate to a new page, the app will need a router. It will also need some content to show on each page. In a real-world application, content is often stored in a database and must be retrieved from a server. To simulate this, you will create a mock service using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and make an HTTP request using built-in Backbone methods to fetch the data.
+        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. In order to navigate to a new page, the app will use a router. It will need some content to show on each page. In a real-world application, content is often stored in a database and must be retrieved from a server. To simulate this, you will create a mock service using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and make an HTTP request using built-in Backbone methods to fetch the data.
     </p>
     <p>
         Make a free account with Mockable if you don't have one already. Once you have created the account, you will be presented with a screen with a tab that says <em>My Domains</em>. There will be a url below this that says something like demo#######.mockable.io. Click this link, then click the button that says +REST Mock. You will now see a screen called REST MOCK. In the Path field, type <em>content</em>. The Verb field should already have the GET option selected and the Response status field should be set to 200 - OK. Change the Response body field from the placeholder Hello World message object to:
@@ -503,15 +503,15 @@
         <code>
             {
                 <div class="tab-1">"content": {</div>
-                    <div class="tab-2">"page-1": "&lt;h2&gt;Page 1 Heading&lt;/h2&gt;&lt;div&gt;This is page 1 content.&lt;/div&gt;",</div>
-                    <div class="tab-2">"page-2": "&lt;h2&gt;Page 2 Heading&lt;/h2&gt;&lt;div&gt;This is page 2 content.&lt;/div&gt;",</div>
-                    <div class="tab-2">"page-3": "&lt;h2&gt;Page 3 Heading&lt;/h2&gt;&lt;div&gt;This is page 3 content.&lt;/div&gt;"</div>
+                    <div class="tab-2">"page-1": "&lt;h2&gt;Page 1 Heading&lt;/h2&gt;&lt;p&gt;This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content. This is page 1 content.&lt;/p&gt;",</div>
+                    <div class="tab-2">"page-2": "&lt;h2&gt;Page 2 Heading&lt;/h2&gt;&lt;p&gt;This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content. This is page 2 content.&lt;/p&gt;",</div>
+                    <div class="tab-2">"page-3": "&lt;h2&gt;Page 3 Heading&lt;/h2&gt;&lt;p&gt;This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content. This is page 3 content.&lt;/p&gt;"</div>
                 <div class="tab-1">}</div>
             }
         </code>
     </div>
     </p>
-        Click the Save button at the bottom of the screen when you are done. Then click the Stopped button. This will change to Started. Next, update the mainTemplate.hbs file.
+        Click the Save button at the bottom of the screen when you are done. Then click the Stopped button. This will change to Started. Now, update the mainTemplate.hbs file.
     </p>
     <p class="file-name">mainTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -527,7 +527,7 @@
         </code>
     </div>
     <p>
-        A model will be needed to hold all of the content data. Add a folder called models in the js folder, then create the MainContent.js file.
+        A model will be needed to contains all of the content data. Add a folder called models in the js folder, then create the MainContent.js file.
     </p>
     <p class="file-name">MainContent.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -546,11 +546,11 @@
                         the url from your account. */
                     </div>
                 </div>
-                <div class="tab-1">url: 'http://demo#######.mockable.io/content'</div>
+                <div class="tab-1">url: 'http://demo#######.mockable.io/content'<strong>,</strong></div>
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* Setting defaults sets default attributes on the model. The key/value pairs in the fetched JSON fetched from the url above will also be added as attributes to the model if the call is successful. If an attribute in the JSON has the same name as a default, it will overwrite it. */
+                        /* The defaults property is a built-in Backbone attribute. Setting defaults sets default attributes on the model in a property aptly named "attributes." The key/value pairs in the JSON fetched from the url above will also be added as attributes to the model if the call is successful. If an attribute in the JSON has the same name as a default, it will overwrite it. */
                     </div>
                 </div>
                 <div class="tab-1">defaults: {</div>
@@ -559,7 +559,7 @@
                             /* Because initial navigation occurs before the content is fetched, the string indicating the route is stored as the value of activePage. Then, once the content is fetched, activeContent can be determined during rendering. */
                         </div>
                     </div>
-                    <div class="tab-2">activePage: null,</div>
+                    <div class="tab-2">activePage: null,</div><br>
                     <div class="tab-2">
                         <div class="comment">
                         /* activeContent is the content that mainTemplate
@@ -578,15 +578,14 @@
                         <div class="tab-3">if (calledFailed || pageNotFound) {</div>
                             <div class="tab-4">return this.error;</div>
                         <div class="tab-3">}</div>
-                    <div class="tab-2">},</div>
+                    <div class="tab-2">},</div><br>
                     <div class="tab-2">error: '&lt;h2&gt;Error&lt;/h2&gt;&lt;div&gt;This is error content.&lt;/div&gt;'</div>
                 <div class="tab-1">},</div>
                 <br>
                 <div class="tab-1">setActiveContent: function(page) {</div>
                     <div class="tab-2">
                         <div class="comment">
-                            /* activePage is set whenever there is navigation.
-                            This is called in MainView. */
+                            /* activePage is a custom method that is set whenever there is navigation. This is called in MainView. */
                         </div>
                     </div>
                     <div class="tab-2">this.set('activePage', page);</div>
@@ -598,7 +597,7 @@
         This model does several things. It defines the default data, the location of the data to be fetched, and a method to set the active content. There is also a built-in fetch method on Backbone models that can be called to get the data. If the call is successful, it will automatically populate the model's attributes property with the response data. This method will be called in MainView.js.
     </p>
     <p>
-        Update MainView.js by adding a variable to require the MainContent.js file. Then create a new instance of it and assign it as the value of the model property. When the view initializes, call the model's fetch method to get the content data.
+        Update MainView.js by adding a variable that requires the MainContent.js file. Then create a new instance of it and assign it as the value of the model property. When the view initializes, call the model's fetch method to get the content data.
     </p>
     <p class="file-name">MainView.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -610,7 +609,7 @@
             module.exports = Marionette.View.extend({<br>
                 <div class="tab-1">el: '#main-region',</div>
                 <br>
-                <div class="tab-1">template: mainTemplate,</div>
+                <div class="tab-1">template: mainTemplate<strong>,</strong></div>
                 <br>
                 <div class="tab-1">
                     <div class="comment">
@@ -649,10 +648,10 @@
     </div>
     <h3>The Router and Controller</h3>
     <p>
-        Next, create a router that will alert the rest of the application that a user has navigated to a particular page. The router will use Backbone.Radio to communicate with all components of the application. The router will trigger an event on a Backbone.Radio channel. MainView will listen on the channel and will show the appropriate content when it hears the event.
+        Next, create a router that will alert the rest of the application when a user has navigated to a particular page. The router will use Backbone.Radio to communicate with all components of the application. It will trigger an event on a Backbone.Radio channel. MainView will listen on the channel and will show the appropriate content when it hears the event.
     </p>
     <p>
-        Create a folder called routers in the js folder to store the router and its controller. The router will specify which methods in the controller are called when the user navigates to a page.
+        Create a folder called routers in the js folder to store the router and its controller. The router will specify which methods in the controller are called when the user navigates to a page. The controller will define the methods that trigger navigation events.
     </p>
     <p class="file-name">AppRouter.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -676,7 +675,7 @@
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* The key for each key/value pair in appRoutes is the route fragment, and the value is the method that will be called in the controller when that route is matched. The colon preceeding ':page' means that it is not a literal route fragment. It is basically a parameter called "page" that will match any URL component between slashes. If the user navigates to anywhere other than the base url, it will call the showPage method. */
+                        /* The key for each key/value pair in appRoutes is the route fragment, and the value is the method that will be called in the controller when that route is matched. The colon preceeding ':page' means that it is not a literal route fragment. It is a parameter called "page" that will match any URL component between slashes. If the user navigates anywhere other than the base url, it will call the showPage method. */
                     </div>
                 </div>
                 <div class="tab-1">appRoutes: {</div>
@@ -686,22 +685,6 @@
             });
         </code>
     </div>
-    <p>
-        In AppRouter.js, we use the same method for every page except the homepage, however we could set a separate method for every page. In the example below, if a user clicks the link that navigtes to <em>#/page-1</em>, the showPageOne method in the controller will be called.
-    </p>
-    <div class="boxed mb-blue lighten-2">
-        <code>
-            appRoutes: {
-                <div class="tab-1">'': 'showDefault',</div>
-                <div class="tab-1">'page-1': 'showPageOne',</div>
-                <div class="tab-1">'page-2': 'showPageTwo',</div>
-                <div class="tab-1">'page-3': 'showPageThree'</div>
-            }
-        </code>
-    </div>
-    <p>
-        The controller will define the methods that trigger navigation events.
-    </p>
     <p class="file-name">AppController.js</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -740,8 +723,7 @@
                 <br>
                 <div class="tab-1">
                     <div class="comment">
-                        /* The router passes the route to showPage, which then triggers
-                        the navigation event. */
+                        /* The router passes the route to showPage, which then triggers the navigation event that will trigger that route's content to be shown. */
                     </div>
                 </div>
                 <div class="tab-1">showPage: function(page) {</div>
@@ -753,6 +735,19 @@
                     <div class="tab-2">this.channel.trigger('navigate', page);</div>
                 <div class="tab-1">}</div>
             });
+        </code>
+    </div>
+    <p>
+        In AppRouter.js, we use the same method for every page except the homepage, however we could create a separate method for every page. In the example below, if a user clicks the link that navigtes to <em>#/page-1</em>, the showPageOne method in the controller would be called.
+    </p>
+    <div class="boxed mb-blue lighten-2">
+        <code>
+            appRoutes: {
+                <div class="tab-1">'': 'showDefault',</div>
+                <div class="tab-1">'page-1': 'showPageOne',</div>
+                <div class="tab-1">'page-2': 'showPageTwo',</div>
+                <div class="tab-1">'page-3': 'showPageThree'</div>
+            }
         </code>
     </div>
     <p>
@@ -771,7 +766,7 @@
                 region: '#app',<br>
                 <br>
                 <div class="comment">
-                    /* The router property is a built-in Marionette attribute that defines the router used to trigger content change when a user navigates. */
+                    /* Define the router used to trigger content change when a user navigates. */
                 </div>
                 <strong>router: new AppRouter(),</strong><br>
                 <br>
@@ -821,6 +816,10 @@
                 </div>
                 <br>
                 <div class="tab-1">initialize: function() {</div>
+                    <div class="tab-2">
+                        var that = this;
+                    </div>
+                    <br>
                     <div class="tab-2">
                         <strong>this.channel.on('navigate', function(page) {</strong>
                     </div>
