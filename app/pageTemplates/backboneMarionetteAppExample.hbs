@@ -212,7 +212,7 @@
         The appTemplate.hbs file is a Handlebars (.hbs) file and not HTML. Using a templating library like Handlebars allows you to work with separate HTML-like files so you don't have to deal with the long, messy strings of HTML associated with manipulating the DOM and template functions. Basically, you are creating DOM elements with JavaScript but it <em>feels</em> like you are just writing HTML.
     </p>
     <p>
-        Create the appTemplate.hbs now. Add a folder called templates in the app folder to store this and other .hbs files.
+        Create <em>appTemplate.hbs</em> now. Add a folder called <em>templates</em> in the <em>app</em> folder to store this and other .hbs files.
     </p>
     <p class="file-name">appTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -223,7 +223,9 @@
     </div>
     <h3>The Child Views</h3>
     <p>
-        HeaderView and MainView are called child views of AppView because they are contained by AppView. In the views folder, create HeaderView.js and MainView.js.
+        HeaderView and MainView are called child views of AppView because they are contained by AppView. HeaderView contains the header that will be shared across all pages. MainView contains the main content of the app, the section that shows content specific to a certain page.
+    </p>
+    <p>In the <em>views</em> folder, create <em>HeaderView.js</em> and <em>MainView.js</em>.
     </p>
     <p class="file-name">HeaderView.js</p>
     <div class="boxed mb-blue lighten-2">
