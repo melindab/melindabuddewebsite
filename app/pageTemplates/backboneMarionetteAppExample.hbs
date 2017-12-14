@@ -1,11 +1,11 @@
 <div class="container">
     <h2>Building an App with Backbone, Marionette, and Browserify</h2>
     <p>
-        Backbone may not be the hottest JavaScript framework these days, but it still is used in a lot of projects. As a JavaScript developer, there is a likelihood you will encounter it at some point. This example demonstrates most of the Backbone features you will need to know when working on a professional Backbone website. It uses two libraries that are commonly used with Backbone applications, Marionette and Browserify. You can find the complete project files at <a href="https://github.com/melindab/backbone-marionette-example"><strong>github.com/melindab/backbone-marionette-example</strong></a>.
+        This example introduces the major Backbone features you need to know when working on a typical Backbone website. It also demonstrates two libraries that are commonly used with Backbone applications: Marionette and Browserify. It uses the current stable versions of Backbone (1.3.3) and Marionette (3.5.1) at the time of writing. If you are familiar with past versions of these frameworks, this example may help you explore some of the latest changes. The complete project files can be found at <a href="https://github.com/melindab/backbone-marionette-example"><strong>github.com/melindab/backbone-marionette-example</strong></a>.
     </p>
     <h3>Dependencies</h3>
     <p>
-        The first step is to install the project's dependencies. In order to keep track of which libraries and versions are installed, create a file called package.json. This file makes it easy for reinstallations and for others to use your code. The package manager, NPM, will be used to install it. See <a href="managing-dependencies-with-npm.html"><strong>Managing Dependencies with NPM</strong></a> for more information.
+        The first step is to install the project's dependencies. In order to keep track of which libraries and versions are installed, create a file called package.json. This file makes it easy to reinstall dependencies and share the project with others. The package manager, NPM, will be used to install it. See <a href="managing-dependencies-with-npm.html"><strong>Managing Dependencies with NPM</strong></a> for more information.
     </p>
     <p>
         Create a folder to contain the application. In the folder, create the package.json file.
@@ -36,13 +36,13 @@
         Backbone, Marionette, Materialize, Handlebars, and hbsfy will be added to the package.json file and installed in a folder called node_modules. Note that Browserify is installed globally and will not show up in the package.json file.
     </p>
     <p>
-        In case you are wondering what all these libraries will be doing for us, here's the lowdown: Backbone will be the project's primary framework, giving it structure through the use of models and views. Marionette is built upon Backbone, and will provide additional helper attributes, methods, and views. Browserify will enable JavaScript files to be exported and loaded as modules. It will also bundle all the JavaScript code into one file. Handlebars will provide the ability to create HTML-like templates, and hbsfy will precompile the templates so they can be used with Browserify. Finally, Materialize will provide some default styles and functionality.
+        In case you are wondering what all these libraries will be doing, here's the lowdown: Backbone will be the project's primary framework, giving it structure through the use of models and views. Marionette is built upon Backbone, and will provide additional helper attributes, methods, and views. Browserify will enable JavaScript files to be exported and loaded as modules. It will also bundle all the JavaScript code into one file. Handlebars will provide the ability to create HTML-like templates, and hbsfy will precompile the templates so they can be used with Browserify. Finally, Materialize will provide some default styles and functionality.
     </p>
-    <h3>Creating the HTML File</h3>
+    <h3>Creating the Index HTML File</h3>
     <p>
         Once all the dependencies are installed, make a folder called <em>app</em> to store all of the application's files. This is not necessary, but will keep the files organized, especially if you decide to add a back-end in the future.
     </p>
-    <p>In a text editor or IDE, create the following index.html file in the app folder:</p>
+    <p>In a text editor or IDE, create the following <em>index.html</em> file in the <em>app</em> folder:</p>
     <p class="file-name">index.html</p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -63,14 +63,14 @@
         </code>
     </div>
     <p>
-        The three things you should note here are the materialize.min.css stylesheet, the #app div, and the script tag for the bundle.js file. The stylesheet is part of the Materialize framework. It will give the project its look, so you won't need to write any CSS. This application will also use Materialize to add a slide-out side navigation component. There is no script element for the Materialize JavaScript file that contains this functionality. That is because its code is included in the bundle.js file that will be created using Browserify. All of the JavaScript code will be contained in this file. That is the beauty of Browserify. You only need to create one script tag for all of the JavaScript code.
+        The three things you should note here are the <em>materialize.min.css</em> stylesheet, the #app div, and the script tag for the <em>bundle.js</em> file. The stylesheet is part of the Materialize framework. It will give the project its look, so you won't need to write any CSS. This application will also use Materialize to add a slide-out side navigation component. There is no script element for the Materialize JavaScript file that contains this functionality. That is because its code is included in the bundle.js file that will be created using Browserify. All of the JavaScript code will be contained in this file. That is the beauty of Browserify. You only need to create one script tag for all of the JavaScript code.
     </p>
     <p>
-        Everything that the user will be able to see will be contained inside the #app div. This application will be a single-page app (SPA). It will appear to contain multiple pages, but will really be one single page that swaps out the content when a user navigates.
+        Everything that the user will be able to see will be contained inside the #app div. This application will be a single-page app (SPA). It will appear to contain multiple pages, but will really be one single page that swaps out content when a user navigates.
     </p>
     <h3>Starting the App</h3>
     <p>
-        The first JavaScript file you will create is App.js. In the app folder, add a folder called js to hold this and all your JavaScript files.
+        The first JavaScript file you will create is <em>App.js</em>. In the app folder, add a folder called <em>js</em> to hold this and all your JavaScript files.
     </p>
     <p class="file-name">App.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -127,16 +127,16 @@
         </code>
     </div>
     <p>
-        The main purpose of the Application object is to declare that AppView.js is the view to show when the application is started. A view is an object that controls what a user will interact with or see. AppView.js will specify the html structure that will be inserted into the #app element in index.html, as well as any functionality associated with it.
+        This file defines the starting point of our app, the Application object, and creates an instance if it. The main purpose of the Application object is to declare that AppView is the view to show when the application is started. A view is an object that controls what a user will interact with or see. AppView will specify the html structure that will be inserted into the #app element in index.html, as well as any functionality associated with it.
     </p>
     <p>
-        At the top of the file are require stements assigned to variables. These tell Browserify that the specified libraries and components are needed in order for the this file to work and to include them in the bundle. If the path is just the name of the file, Browserify assumes it is a library and looks in the node_modules folder. Note that ".js" can be left off the file name if the file is JavaScript. If it is an .html file or anything else, the extension will need to be specified.
+        At the top of the file are require stements assigned to variables. These tell Browserify that the specified libraries and components are needed in order for this component to work and to include them in the bundle. Some of the require statements specify folder names while others are paths. If only a folder name is specified, Browserify assumes it is a library and looks in the node_modules folder. Note that ".js" can be left off the file name if the file is JavaScript. If it is an .html file or anything else, the extension will need to be specified.
     </p>
     <p>
         There are certain properties, methods, and events that are built into Backbone and Marionette, such as the region property and the showView method of the Application object. The values you set are used in specific ways by these frameworks. For instance, the element specified by the region property declares where the view will be inserted. You can also create your own custom properties and methods, as you will see later.
     </p>
     <p>
-        The application is initialized and exported at the same time since only one instance is needed. Objects are exported so they can be used by other components. In this case, it will be used by the file that starts the application, main.js.
+        Only one instance of the application is needed, so the final line of code in the file initializes and exports the application at the same time. Objects are exported so they can be used by other components. In this case, it will be used by the file that starts the application, main.js.
     </p>
     <p>
         Create the main.js file now. Require the App.js file you just created and assign it to a variable called App. Then, call the start method on App, which triggers the onStart event callback in App.js.
@@ -152,7 +152,7 @@
         </code>
     </div>
     <p>
-        The Materialize and Hammer libraries are not assigned to variables because they are never used as variables. This is just a quick way to get these libraries included into our bundle for this tutorial. Since this file is the entry point to the app, they were added here. Note that despite having <em>css</em> in the name, <em>materialize-css</em> is a JavaScript file.
+        Note that the Materialize and Hammer libraries are not assigned to variables. This is because they are never used as variables. This is just a quick way to get these libraries included into our bundle for this tutorial. Since this file is the entry point to the app, they were added here. Also note that despite having <em>css</em> in the name, <em>materialize-css</em> is a JavaScript file.
     </p>
     <h3>The Parent View</h3>
     <p>
