@@ -156,7 +156,7 @@
     </p>
     <h3>The Parent View</h3>
     <p>
-        You now need to create the AppView.js file that was required in App.js. This will be the parent, or containing, view to all the other views. Add a views folder in the js folder to hold this and all view files.
+        You now need to create the AppView.js file that was required in App.js. This will be the parent, or containing, view to all the other views. Add a <em>views</em> folder in the <em>js</em> folder to hold this and all view files.
     </p>
     <p class="file-name">AppView.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -206,7 +206,7 @@
         </code>
     </div>
     <p>
-        This file tells the app to use the template to produce the HTML structure for this view. Inside that structure will be elements called #header-region and #main-region. The sub-views, HeaderView and MainView, will be inserted in these two elements, respectively. The view then inserts, or shows, the sub-views. This all gets inserted into the #app region specified in App.js. If you are wondering why you need to define #app as the el, it is so that the header and main content sections are inserted directly into the #app element. If the el was not specified, it would nest the elements in another div before nesting it in #app.
+        AppView tells the app to use the specified template, appTemplate, to produce the HTML structure for this view. Inside that structure will be elements called #header-region and #main-region. The sub-views, HeaderView and MainView, will be inserted in these two elements, respectively. The view  inserts, or shows, the sub-views after it is rendered. All the view's DOM elements get inserted into the #app region specified in App.js. If you are wondering why you need to define #app as the el (the containing element) when it is already specified as the region in App.js, it is so that the header and main content sections are inserted directly into the #app element. If the el was not specified, it would nest the elements in another div before nesting it in #app.
     </p>
     <p>
         The appTemplate.hbs file is a Handlebars (.hbs) file and not HTML. Using a templating library like Handlebars allows you to work with separate HTML-like files so you don't have to deal with the long, messy strings of HTML associated with manipulating the DOM and template functions. Basically, you are creating DOM elements with JavaScript but it <em>feels</em> like you are just writing HTML.
