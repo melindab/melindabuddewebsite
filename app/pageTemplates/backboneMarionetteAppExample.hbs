@@ -496,10 +496,10 @@
     <p>
     <h3>The Content Model</h3>
     <p>
-        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. In order to navigate to a new page, the app will use a router. It will need some content to show on each page. In a real-world application, content is often stored in a database and must be retrieved from a server. To simulate this, you will create a mock service using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a> and make an HTTP request using built-in Backbone methods to fetch the data.
+        There is one problem with the side navigation items &mdash; the links in the menu don't take us anywhere. In order to navigate to a new page, the app will be using a router. It will need some content to show on each page. In a real-world application, content is often stored in a database and must be retrieved from a server. To simulate this, you will create a mock service using <a href="https://www.mockable.io/"><strong>mockable.io</strong></a>. The data will be fetched using built-in Backbone methods.
     </p>
     <p>
-        Make a free account with Mockable if you don't have one already. Once you have created the account, you will be presented with a screen with a tab that says <em>My Domains</em>. There will be a url below this that says something like demo#######.mockable.io. Click this link, then click the button that says +REST Mock. You will now see a screen called REST MOCK. In the Path field, type <em>content</em>. The Verb field should already have the GET option selected and the Response status field should be set to 200 - OK. Change the Response body field from the placeholder Hello World message object to:
+        Make a free account with Mockable if you don't have one already. Once you have created the account, you will be presented with a screen with a tab that says <em>My Domains</em>. There will be a url below this that says something like <em>demo#######.mockable.io</em>. Click this link, then click the button that says <em>+REST Mock</em>. You will now see a screen called <em>REST MOCK</em>. In the <em>Path</em> field, type <em>content</em>. The <em>Verb</em> field should already have the GET option selected and the <em>Response status</em> field should be set to 200 - OK. Change the <em>Response body</em> field from the placeholder object to:
     </p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -513,7 +513,7 @@
         </code>
     </div>
     </p>
-        Click the Save button at the bottom of the screen when you are done. Then click the Stopped button. This will change to Started. Now, update the mainTemplate.hbs file.
+        Click the <em>Save</em> button at the bottom of the screen when you are done. Then click the <em>Stopped</em> button. This will change to <em>Started</em>. Now, update the <em>mainTemplate.hbs</em> file by replacing the text within the div with a Handlebars expression.
     </p>
     <p class="file-name">mainTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -529,7 +529,7 @@
         </code>
     </div>
     <p>
-        A model will be needed to contains all of the content data. Add a folder called models in the js folder, then create the MainContent.js file.
+        A model will be needed to contain all of the content data. Add a folder called models in the js folder, then create the <em>MainContent.js</em> file.
     </p>
     <p class="file-name">MainContent.js</p>
     <div class="boxed mb-blue lighten-2">
@@ -596,10 +596,10 @@
         </code>
     </div>
     <p>
-        This model does several things. It defines the default data, the location of the data to be fetched, and a method to set the active content. There is also a built-in fetch method on Backbone models that can be called to get the data. If the call is successful, it will automatically populate the model's attributes property with the response data. This method will be called in MainView.js.
+        This model does several things. It defines the default data, the location of the data to be fetched, and a method to set the active content. There is also a built-in fetch method on Backbone models that can be called to get the data. If the call is successful, it will automatically populate the model's attributes property with the response data. This method will be called in <em>MainView.js</em>.
     </p>
     <p>
-        Update MainView.js by adding a variable that requires the MainContent.js file. Then create a new instance of it and assign it as the value of the model property. When the view initializes, call the model's fetch method to get the content data.
+        Update <em>MainView.js</em> by adding a variable that requires the <em>MainContent.js</em> file. Then create a new instance of the MainContent object and assign it as the value of the model property. When the view initializes, call the model's fetch method to get the content data.
     </p>
     <p class="file-name">MainView.js</p>
     <div class="boxed mb-blue lighten-2">
