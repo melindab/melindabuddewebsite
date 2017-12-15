@@ -325,7 +325,7 @@
     </p>
     <h3>Models and Collections</h3>
     <p>
-        Hard-coding all the items in the side navigation is not the best way to go. It would be better to have a collection of routes to use as a single source of truth. A collection is a container for an array of models. Models are objects that hold data to be used in views. When a collection is created from an array of objects, the objects are automatically converted to models. The routes collection will use a special kind of view called a CollectionView that will automatically iterate through the collection and add each item to the view.
+        Hard-coding all the items in the side navigation is not the best way to go. It would be better to have a collection of routes to use as a single source of truth. A collection is an object that contains an array of models. Models are objects that hold data to be used in views. When a collection is created from an array of objects, the objects are automatically converted to models. Using a special kind of view called a CollectionView, you can display multiple similar items as sub-views in one containing view. The CollectionView will automatically iterate through the collection and add each item to the view. You will be using a CollectionView to display all the items in the side navigation.
     </p>
     <p>First, update the headerTemplate.hbs file by removing the list items from the unordered list.</p>
     <p class="file-name">headerTemplate.hbs</p>
@@ -344,7 +344,7 @@
         </code>
     </div>
     <p>
-        Now, create a template for each link. Don't worry that no list element exists in the template. We are going to take care of that in the view.
+        Now, create a template for each link. Don't worry that no list element exists in the template. This will be taken care of in the view.
     </p>
     <p class="file-name">navItemTemplate.hbs</p>
     <div class="boxed mb-blue lighten-2">
@@ -448,7 +448,7 @@
         </code>
     </div>
     <p>
-        Update the HeaderView.js file so that unordered list in the header template is a region. Show NavItemsView.js in that region.
+        Update the <em>HeaderView.js</em> file so that unordered list in the header template is a region. Show NavItemsView in that region.
     </p>
     <p class="file-name">HeaderView.js</p>
     <div class="boxed mb-blue lighten-2">
