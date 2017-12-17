@@ -57,6 +57,8 @@ a:hover {
 
 code {
     font-family: 'Roboto Mono', monospace;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .app-container {

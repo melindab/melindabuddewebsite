@@ -35,6 +35,7 @@ module.exports = Marionette.CollectionView.extend({
 
         this.selectedItem = '#' + page;
         $( this.selectedItem ).parent().addClass( 'active' );
+        $( '.button-collapse' ).sideNav( 'hide' );
     }
 
 });
