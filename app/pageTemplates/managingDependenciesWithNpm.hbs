@@ -4,7 +4,7 @@
         Managing dependencies (libraries, frameworks, etc.) can quickly become complicated in large projects. NPM can be used to help control versions and automate installations of dependencies that have been published as NPM packages. Due to NPM's popularity, most dependencies you will use can be found as NPM packages.
     </p>
     <p>
-        If you haven't already done so, install Node. Then create a file called <em>package.json</em> in your project folder using a text editor or IDE. Usually this is added to the top-level folder, or root directory. All content in the file must be JSON. The name and version properties (also called "fields") are required. Don't start the name with a dot or an underscore, and don't use uppercase letters or URL-unsafe characters. This is an example of a very simple <em>package.json</em> file:
+        If you haven't already done so, install Node. Then create a file called <em>package.json</em> in your project folder using a text editor or IDE. Usually this is added to the top-level folder, or root directory. All content in the file must be JSON. The name and version properties are required. Don't start the name with a dot or an underscore, and don't use uppercase letters or URL-unsafe characters. This is an example of a very simple <em>package.json</em> file:
     </p>
     <div class="boxed mb-blue lighten-2">
         <code>
@@ -15,7 +15,7 @@
         </code>
     </div>
     <p>
-        There are also two other properties you will need: dependencies and devDependencies. These will be created for you if you install dependencies using the --save or --save-dev flag, respectively. If a library or framework is needed in order for your application to run and should be deployed to a production server, it should be saved under <em>dependencies</em>. If it is a testing framework or other library that is only needed when developing, it should be saved under <em>devDependencies</em>.
+        There are also two other properties you will need: dependencies and devDependencies. These will be created for you if you install dependencies using the --save or --save-dev flag, respectively. If a library or framework is needed in order for your application to run and should be deployed to a production server, it should be saved as a dependency. If it is a testing framework or other library that is only needed when developing, it should be saved as a devDependency.
     <p>
     <p>
         In your command line interface (CLI), change your current working directory to your project folder (or the folder that contains your <em>package.json</em> file). Enter the following commands into the command line to both install dependencies and save them:
@@ -33,7 +33,7 @@
     </code>
     </div>
     <p>
-        You should now have a node_modules folder in your sample_backbone_website folder, as well as dependencies and/or devDependencies added to you <em>package.json</em> file. You may want to add the folder to your project's .gitignore file so it doesn't get uploaded to your git repo. If you delete the node_modules folder, you can reinstall all your dependencies again by entering the following command in your CLI:
+        You should now have a <em>node_modules</em> folder in your project folder, as well as dependencies and/or devDependencies added to you <em>package.json</em> file. You may want to add the folder to your project's <em>.gitignore</em> file so it doesn't get uploaded to your git repo. If you delete the <em>node_modules</em> folder, you can reinstall all your dependencies again by entering the following command in your CLI:
     </p>
     <div class="boxed mb-blue lighten-2">
         <code>
